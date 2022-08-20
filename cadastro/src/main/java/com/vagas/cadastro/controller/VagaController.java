@@ -31,7 +31,8 @@ public class VagaController {
     @Transactional
     public ResponseEntity<?> criar(@RequestBody @Validated VagaRequestDTO dto) {
         try {
-            return service.validar(dto);
+            service.salvar(dto);
+            return ResponseEntity.status(201).build();
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }
@@ -39,9 +40,8 @@ public class VagaController {
 
     @DeleteMapping("/deletar/{id}")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
-    @Transactional
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        retorno.put("response", "vaga deletada com sucesso!");
+        retorno.put("response", "Vaga deletada com sucesso!");
         try {
             service.deletar(id);
             return ResponseEntity.ok().body(retorno);
@@ -52,7 +52,6 @@ public class VagaController {
 
     @GetMapping("/pesquisar/{id}")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
-    @Transactional
     public ResponseEntity<?> pesquisar(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.pesquisar(id));
@@ -74,6 +73,16 @@ public class VagaController {
         }
     }
 
+    @GetMapping("/listar")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
+    public ResponseEntity<?> listar(Pageable pageable) {
+        try {
+            return ResponseEntity.ok().body(service.listar(pageable));
+        } catch (Exception e) {
+            return retornoErro(e.getMessage());
+        }
+    }
+
     @PutMapping("/editar/{id}")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
     @Transactional
@@ -81,8 +90,7 @@ public class VagaController {
             @PathVariable(value = "id") Long id,
             @RequestBody @Validated VagaRequestDTO dto) {
         try {
-            Vaga vaga = dto.convert();
-            return ResponseEntity.ok().body(service.editar(id, vaga));
+            return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

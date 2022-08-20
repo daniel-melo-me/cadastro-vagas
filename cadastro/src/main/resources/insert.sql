@@ -7,4 +7,3 @@ create table perfil
     id bigint primary key not null,
     nome varchar2(20) unique not null
 );
-

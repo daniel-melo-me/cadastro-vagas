@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class AutenticacaoController {
     private final Map<String, String> erro = new HashMap<>();
 
     @PostMapping("/login")
+    @Transactional
     public ResponseEntity<?> autenticar(@RequestBody @Validated LoginDTO dto) {
         UsernamePasswordAuthenticationToken dadosLogin = dto.converter();
         try {
@@ -44,9 +46,11 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/cadastro")
+    @Transactional
     public ResponseEntity<?> registrar(@RequestBody @Validated UsuarioRequestDTO dto) {
         try {
-            return service.validarCampos(dto);
+            service.salvarUsuario(dto);
+            return ResponseEntity.status(201).build();
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

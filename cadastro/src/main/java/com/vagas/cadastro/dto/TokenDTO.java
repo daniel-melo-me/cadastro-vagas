@@ -1,9 +1,9 @@
 package com.vagas.cadastro.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class TokenDTO {
 

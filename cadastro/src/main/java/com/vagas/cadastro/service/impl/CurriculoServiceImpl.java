@@ -3,48 +3,67 @@ package com.vagas.cadastro.service.impl;
 import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
 import com.vagas.cadastro.model.Curriculo;
+import com.vagas.cadastro.model.Tags;
 import com.vagas.cadastro.repository.ArquivoRepository;
 import com.vagas.cadastro.repository.CurriculoRepository;
+import com.vagas.cadastro.repository.TagsRepository;
 import com.vagas.cadastro.service.CurriculoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
 public class CurriculoServiceImpl implements CurriculoService {
 
+    private final TagsRepository tagsRepository;
     private final CurriculoRepository repository;
     private final ArquivoRepository arquivoRepository;
     private final ArrayList<String> extensaoImagens = new ArrayList<>();
-    private final Map<String, String> erro = new HashMap<>();
     private static final String[] EXTENCOES = {
             ".TXT", ".txt", ".PDF", ".pdf", ".DOC", ".doc", ".DOCX", ".docx",
             ".ppt", ".PPT", ".pps", ".PPS"
     };
 
     @Override
-    public Curriculo salvar(CurriculoRequestDTO dto) {
+    public Page<Curriculo> listar(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
+    public void salvar(CurriculoRequestDTO dto) {
+        validarArquivo(dto);
+        validaExtencaoImagem(dto);
         Curriculo curriculo = dto.convert();
-        return repository.save(curriculo);
+        validarTag(curriculo);
+        repository.save(curriculo);
+    }
+
+    private void validarArquivo(CurriculoRequestDTO dto) {
+        if (isNull(dto.getArquivo())) {
+            throw new RuntimeException("Arquivo não encontrado");
+        }
     }
 
     @Override
     public void deletar(Long id) {
+        verificarId(id);
         repository.deleteById(id);
     }
 
     @Override
     public Curriculo pesquisar(Long id) {
-        return repository.findById(id).orElse(null);
+        if (repository.existsById(id)) {
+            return repository.findById(id).orElse(null);
+        }
+        throw new RuntimeException("Curriculo não encontrado");
     }
 
     @Override
@@ -56,34 +75,46 @@ public class CurriculoServiceImpl implements CurriculoService {
     }
 
     @Override
-    public Curriculo editar(Long id, Curriculo curriculo) {
+    public Curriculo editar(Long id, CurriculoRequestDTO dto) {
+        verificarId(id);
+        Curriculo curriculo = dto.convert();
+        validarTag(curriculo);
         curriculo.setId(id);
         return repository.save(curriculo);
     }
 
-    @Override
-    public ResponseEntity<?> validaExtencaoImagem(CurriculoRequestDTO dto) {
+    public void validaExtencaoImagem(CurriculoRequestDTO dto) {
         carregaExtensaoImagens();
 
-        Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElse(null);
+        Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow();
 
-        assert arquivo != null;
         int digito = arquivo.getFileName().lastIndexOf(".");
         String extencao = arquivo.getFileName().substring(arquivo.getFileName().length() - (arquivo.getFileName().length() - digito));
 
         if (!extensaoImagens.contains(extencao)) {
-            return retornoErro();
+            throw new RuntimeException("formato de documento inválido");
         }
-
-        return ResponseEntity.ok().body(salvar(dto));
     }
 
     public void carregaExtensaoImagens() {
         extensaoImagens.addAll(List.of(EXTENCOES));
     }
 
-    private ResponseEntity<?> retornoErro() {
-        erro.put("erro", "formato de documento inválido");
-        return ResponseEntity.badRequest().body(erro);
+    private void verificarId(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Id não encontrado");
+        }
+    }
+
+    private void validarTag(Curriculo curriculo) {
+        if (!isNull(curriculo.getTags())) {
+            for (Tags tags : curriculo.getTags()) {
+                if (!isNull(tags.getId())) {
+                    if (!tagsRepository.existsById(tags.getId())) {
+                        throw new RuntimeException("Tag não existente");
+                    }
+                }
+            }
+        }
     }
 }

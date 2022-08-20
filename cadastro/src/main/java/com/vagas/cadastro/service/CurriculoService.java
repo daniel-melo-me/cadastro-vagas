@@ -4,13 +4,12 @@ import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
 import com.vagas.cadastro.model.Curriculo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface CurriculoService {
 
-    Curriculo salvar(CurriculoRequestDTO dto);
+    Page<Curriculo> listar(Pageable pageable);
+
+    void salvar(CurriculoRequestDTO dto);
 
     void deletar(Long id);
 
@@ -18,7 +17,6 @@ public interface CurriculoService {
 
     Page<Curriculo> findPagedByFilters(CurriculoRequestDTO filter, Pageable pageable);
 
-    Curriculo editar(Long id, Curriculo curriculo);
+    Curriculo editar(Long id, CurriculoRequestDTO dto);
 
-    ResponseEntity<?> validaExtencaoImagem(CurriculoRequestDTO dto);
 }
