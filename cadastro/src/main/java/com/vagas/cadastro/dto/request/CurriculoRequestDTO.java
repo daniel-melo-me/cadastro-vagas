@@ -1,5 +1,6 @@
 package com.vagas.cadastro.dto.request;
 
+import com.sun.istack.NotNull;
 import com.vagas.cadastro.model.Arquivo;
 import com.vagas.cadastro.model.Curriculo;
 import com.vagas.cadastro.model.Tags;
@@ -13,6 +14,7 @@ public class CurriculoRequestDTO {
 
     private Long id;
     private String descricao;
+    @NotNull
     private Arquivo arquivo;
     private Usuario usuario;
     private List<Tags> tags;

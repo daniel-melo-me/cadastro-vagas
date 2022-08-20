@@ -15,4 +15,5 @@ public interface TagsRepository extends JpaRepository<Tags, Long> {
             "   WHERE t.nome LIKE CONCAT('%',:#{#filter.nome},'%') ")
     Page<Tags> findFilterList(TagsRequestDTO filter, Pageable pageable);
 
+    boolean existsByNome(String nome);
 }

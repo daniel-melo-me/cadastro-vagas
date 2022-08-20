@@ -1,8 +1,8 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.TagsRequestDTO;
-import com.vagas.cadastro.model.Tags;
-import com.vagas.cadastro.service.TagsService;
+import com.vagas.cadastro.dto.request.CandidaturasRequestDTO;
+import com.vagas.cadastro.model.Candidaturas;
+import com.vagas.cadastro.service.CandidaturasService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -16,20 +16,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/tags")
 @RequiredArgsConstructor
+@RequestMapping(path = "/candidaturas")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Slf4j
-public class TagsController {
+public class CandidaturasController {
 
-    private final TagsService service;
-    private final Map<String, String> retorno = new HashMap<>();
+    private final CandidaturasService service;
     private final Map<String, String> erro = new HashMap<>();
+    private final Map<String, String> retorno = new HashMap<>();
 
     @PostMapping("/criar")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
+    @PreAuthorize("hasRole('ALUNO') or hasRole('ADMIN')")
     @Transactional
-    public ResponseEntity<?> criar(@RequestBody @Validated TagsRequestDTO dto) {
+    public ResponseEntity<?> criar(@RequestBody @Validated CandidaturasRequestDTO dto) {
         try {
             service.salvar(dto);
             return ResponseEntity.status(201).build();
@@ -39,9 +39,9 @@ public class TagsController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('PROFESSOR') or hasRole('ALUNO')")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        retorno.put("response", "Tag deletada com sucesso!");
+        retorno.put("response", "Candidatura deletada com sucesso!");
         try {
             service.deletar(id);
             return ResponseEntity.ok().body(retorno);
@@ -55,19 +55,6 @@ public class TagsController {
     public ResponseEntity<?> pesquisar(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.pesquisar(id));
-        } catch (Exception e) {
-            return retornoErro(e.getMessage());
-        }
-    }
-
-    @GetMapping("/filtrar")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO') ")
-    @Transactional
-    public ResponseEntity<?> findPagedByFilter(
-            @RequestBody TagsRequestDTO filter,
-            Pageable pageable) {
-        try {
-            return ResponseEntity.ok().body(service.findPagedByFilters(filter, pageable));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }
@@ -88,7 +75,7 @@ public class TagsController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated TagsRequestDTO dto) {
+            @RequestBody @Validated CandidaturasRequestDTO dto) {
         try {
             return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {

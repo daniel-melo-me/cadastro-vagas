@@ -1,18 +1,19 @@
 package com.vagas.cadastro.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vagas.cadastro.model.enumeration.InstitucionalEnum;
 import com.vagas.cadastro.model.enumeration.StatusEnum;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -37,14 +38,15 @@ public class Vaga implements Serializable {
     private String link;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, unique = true)
+    @Column(length = 20, nullable = false)
     private InstitucionalEnum institucional;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime expiracao;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private StatusEnum status;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -55,13 +57,13 @@ public class Vaga implements Serializable {
     private Usuario usuario;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "vagas_tags",
             joinColumns = @JoinColumn(name = "vaga_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tags> tags;
+    private List<Tags> tags;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "candidaturas",
-            joinColumns = @JoinColumn(name = "vaga_id"), inverseJoinColumns = @JoinColumn(name = "curriculo_id"))
-    private List<Curriculo> curriculos;
+    @OneToMany(mappedBy = "vaga")
+    @JsonIgnore
+    private List<Candidaturas> candidaturas;
 
 }

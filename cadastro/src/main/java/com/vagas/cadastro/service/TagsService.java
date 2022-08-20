@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface TagsService {
 
+    Page<Tags> listar(Pageable pageable);
+
     Tags salvar(TagsRequestDTO dto);
 
     void deletar(Long id);
@@ -15,5 +17,6 @@ public interface TagsService {
 
     Page<Tags> findPagedByFilters(TagsRequestDTO filter, Pageable pageable);
 
-    Tags editar(Long id, Tags tags);
+    Tags editar(Long id, TagsRequestDTO dto);
+
 }

@@ -1,10 +1,8 @@
 package com.vagas.cadastro.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuario")
+@ToString
 public class Usuario implements UserDetails, Serializable {
 
     @Id
@@ -37,16 +36,18 @@ public class Usuario implements UserDetails, Serializable {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String matricula;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataCriacao = LocalDate.now();
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Curriculo> curriculos;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private List<Vaga> vagas;
 
     @OneToOne
@@ -56,19 +57,6 @@ public class Usuario implements UserDetails, Serializable {
     @ManyToOne
     @JoinColumn(name = "perfil_id")
     private Perfil perfis;
-
-    public Usuario(
-            Perfil perfis,
-            String nome,
-            String email,
-            String encode,
-            String matricula) {
-        this.perfis = perfis;
-        this.nome = nome;
-        this.email = email;
-        this.senha = encode;
-        this.matricula = matricula;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

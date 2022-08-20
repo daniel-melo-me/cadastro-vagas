@@ -1,7 +1,6 @@
 package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
-import com.vagas.cadastro.model.Curriculo;
 import com.vagas.cadastro.service.CurriculoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,18 +28,19 @@ public class CurriculoController {
     @PostMapping("/criar")
     @PreAuthorize("hasRole('ALUNO') or hasRole('ADMIN')")
     @Transactional
-    public ResponseEntity<?> criar(@RequestBody @Validated CurriculoRequestDTO dto) {
+    public ResponseEntity<?> salvar(@RequestBody @Validated CurriculoRequestDTO dto) {
         try {
-            return service.validaExtencaoImagem(dto);
+            service.salvar(dto);
+            return ResponseEntity.status(201).build();
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }
     }
 
     @DeleteMapping("/deletar/{id}")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        retorno.put("response", "curriculo deletado com sucesso!");
+        retorno.put("response", "Currículo deletado com sucesso!");
         try {
             service.deletar(id);
             return ResponseEntity.ok().body(retorno);
@@ -50,7 +50,7 @@ public class CurriculoController {
     }
 
     @GetMapping("/pesquisar/{id}")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') ")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     public ResponseEntity<?> pesquisar(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.pesquisar(id));
@@ -60,7 +60,7 @@ public class CurriculoController {
     }
 
     @GetMapping("/filtrar")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
     public ResponseEntity<?> findPagedByFilter(
             @RequestBody CurriculoRequestDTO filter,
@@ -72,15 +72,24 @@ public class CurriculoController {
         }
     }
 
+    @GetMapping("/listar")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO') ")
+    public ResponseEntity<?> listar(Pageable pageable) {
+        try {
+            return ResponseEntity.ok().body(service.listar(pageable));
+        } catch (Exception e) {
+            return retornoErro(e.getMessage());
+        }
+    }
+
     @PutMapping("/editar/{id}")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
             @RequestBody @Validated CurriculoRequestDTO dto) {
         try {
-            Curriculo curriculo = dto.convert();
-            return ResponseEntity.ok().body(service.editar(id, curriculo));
+            return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

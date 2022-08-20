@@ -23,7 +23,7 @@ public class Curriculo implements Serializable {
     private String descricao;
 
     @OneToOne
-    @JoinColumn(name = "arquivo_id")
+    @JoinColumn(name = "arquivo_id", nullable = false)
     private Arquivo arquivo;
 
     @ManyToOne

@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +18,9 @@ public class ArquivoStorageService {
 
     public Arquivo storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         try {
-
             Arquivo dbFile = new Arquivo(fileName, file.getContentType(), file.getBytes());
 
             return repository.save(dbFile);
@@ -35,7 +35,7 @@ public class ArquivoStorageService {
 
     public Arquivo editFile(String fileId, MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         try {
             // Check if the file's name contains invalid characters
@@ -50,5 +50,9 @@ public class ArquivoStorageService {
         } catch (IOException ex) {
             throw new RuntimeException("Não foi possível armazenar o arquivo " + fileName + ". Por favor, tente novamente!", ex);
         }
+    }
+
+    public void deleteFile(String fileId) {
+        repository.deleteById(fileId);
     }
 }

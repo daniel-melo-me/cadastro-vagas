@@ -21,7 +21,6 @@ public class Perfil implements GrantedAuthority, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    @JsonIgnore
     private Long id;
 
     @Enumerated(EnumType.STRING)

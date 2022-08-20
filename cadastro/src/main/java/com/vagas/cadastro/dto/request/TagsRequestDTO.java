@@ -1,5 +1,6 @@
 package com.vagas.cadastro.dto.request;
 
+import com.sun.istack.NotNull;
 import com.vagas.cadastro.model.Tags;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import lombok.Data;
 public class TagsRequestDTO {
 
     private Long id;
+    @NotNull
     private String nome;
 
     public TagsRequestDTO() {
