@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static java.util.Objects.isNull;
-
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
@@ -39,10 +37,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private void autenticarCliente(String token) {
         Long idUsuario = tokenService.getIdUsuario(token);
-        Usuario usuario = repository.findById(idUsuario).orElse(null);
-        if (isNull(usuario)) {
-            throw new RuntimeException("Usuário não logado");
-        }
+        Usuario usuario = repository.findById(idUsuario).orElseThrow();
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
