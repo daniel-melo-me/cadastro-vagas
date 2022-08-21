@@ -680,7 +680,8 @@ input[type='checkbox'] {
 
 .navbar-custom .nav-item .nav-link {
 	padding: 0.625rem 0.75rem 0.625rem 0.75rem;
-	color: #f7f5f5;
+	color: #333E68;
+	/* color: #f7f5f5; */
 	opacity: 0.8;
 	text-decoration: none;
 	transition: all 0.2s ease;
@@ -1724,11 +1725,15 @@ a:hover.back-to-top {
 
 /* Min-width width 992px */
 @media (min-width: 992px) {
-	
 	/* Navigation */
+	.navbar-expand-lg .navbar-collapse {
+		justify-content: flex-end;
+	}
+
 	.navbar-custom {
 		padding: 2.125rem 1.5rem 2.125rem 2rem;
-        background: transparent;
+        background: #fff;
+        /* background: transparent; */
 		box-shadow: none;
 	}
 
