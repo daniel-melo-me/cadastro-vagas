@@ -689,7 +689,7 @@ input[type='checkbox'] {
 
 .navbar-custom .nav-item .nav-link:hover,
 .navbar-custom .nav-item .nav-link.active {
-	color: #fff;
+	color: #4332c5;
 	opacity: 1;
 }
 
@@ -1788,6 +1788,14 @@ a:hover.back-to-top {
 		margin-top: 0;
 		margin-bottom: 0;
 		margin-left: 1rem;
+		color: #333E68;
+		border-color: #333E68;
+		transition: all ease .2s;
+	}
+
+	.navbar-custom .nav-item .btn-outline-sm:hover {
+		background-color: #333E68;
+		color: #fff;
 	}
 	/* end of navigation */
 
