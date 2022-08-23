@@ -1,7 +1,6 @@
 package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.TagsRequestDTO;
-import com.vagas.cadastro.model.Tags;
 import com.vagas.cadastro.service.TagsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class TagsController {
     @PostMapping("/criar")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
-    public ResponseEntity<?> criar(@RequestBody @Validated TagsRequestDTO dto) {
+    public ResponseEntity<?> criar(@RequestBody @Valid TagsRequestDTO dto) {
         try {
             service.salvar(dto);
             return ResponseEntity.status(201).build();
@@ -64,7 +63,7 @@ public class TagsController {
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO') ")
     @Transactional
     public ResponseEntity<?> findPagedByFilter(
-            @RequestBody TagsRequestDTO filter,
+            @RequestBody @Valid TagsRequestDTO filter,
             Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.findPagedByFilters(filter, pageable));
@@ -88,7 +87,7 @@ public class TagsController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated TagsRequestDTO dto) {
+            @RequestBody @Valid TagsRequestDTO dto) {
         try {
             return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {

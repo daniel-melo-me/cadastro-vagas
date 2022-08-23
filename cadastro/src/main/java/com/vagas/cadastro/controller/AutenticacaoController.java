@@ -13,9 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class AutenticacaoController {
 
     @PostMapping("/login")
     @Transactional
-    public ResponseEntity<?> autenticar(@RequestBody @Validated LoginDTO dto) {
+    public ResponseEntity<?> autenticar(@RequestBody @Valid LoginDTO dto) {
         UsernamePasswordAuthenticationToken dadosLogin = dto.converter();
         try {
             Authentication authentication = authManager.authenticate(dadosLogin);
@@ -47,7 +47,7 @@ public class AutenticacaoController {
 
     @PostMapping("/cadastro")
     @Transactional
-    public ResponseEntity<?> registrar(@RequestBody @Validated UsuarioRequestDTO dto) {
+    public ResponseEntity<?> registrar(@RequestBody @Valid UsuarioRequestDTO dto) {
         try {
             service.salvarUsuario(dto);
             return ResponseEntity.status(201).build();

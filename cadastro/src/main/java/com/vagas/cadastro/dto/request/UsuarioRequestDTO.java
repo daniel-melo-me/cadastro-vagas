@@ -16,7 +16,6 @@ public class UsuarioRequestDTO {
     private PasswordEncoder encoder;
 
     private Long id;
-    private Perfil perfil;
     private List<Curriculo> curriculos;
     private Arquivo arquivo;
     @NotNull
@@ -35,7 +34,6 @@ public class UsuarioRequestDTO {
 
     public UsuarioRequestDTO(Usuario usuario) {
         this.id = usuario.getId();
-        this.perfil = usuario.getPerfis();
         this.curriculos = usuario.getCurriculos();
         this.arquivo = usuario.getArquivo();
         this.nome = usuario.getNome();
@@ -48,7 +46,6 @@ public class UsuarioRequestDTO {
     public Usuario convert() {
         Usuario usuario = new Usuario();
         usuario.setId(this.id);
-        usuario.setPerfis(this.perfil);
         usuario.setMatricula(this.matricula);
         return getUsuario(usuario, this.curriculos, this.arquivo, this.nome, this.email, this.senha, this.vagas);
     }
