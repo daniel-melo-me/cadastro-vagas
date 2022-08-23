@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class CurriculoController {
     @PostMapping("/criar")
     @PreAuthorize("hasRole('ALUNO') or hasRole('ADMIN')")
     @Transactional
-    public ResponseEntity<?> salvar(@RequestBody @Validated CurriculoRequestDTO dto) {
+    public ResponseEntity<?> salvar(@RequestBody @Valid CurriculoRequestDTO dto) {
         try {
             service.salvar(dto);
             return ResponseEntity.status(201).build();
@@ -63,7 +63,7 @@ public class CurriculoController {
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
     public ResponseEntity<?> findPagedByFilter(
-            @RequestBody CurriculoRequestDTO filter,
+            @RequestBody @Valid CurriculoRequestDTO filter,
             Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.findPagedByFilters(filter, pageable));
@@ -87,7 +87,7 @@ public class CurriculoController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated CurriculoRequestDTO dto) {
+            @RequestBody @Valid CurriculoRequestDTO dto) {
         try {
             return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {

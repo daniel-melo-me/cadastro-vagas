@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .antMatchers("/arquivo/*").permitAll()
                 .antMatchers("/arquivo/**").permitAll()
                 .antMatchers("/arquivo/downloadFile/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/vaga/listar").permitAll()
+                .antMatchers(HttpMethod.POST,"/email/enviar").permitAll()
                 .antMatchers(PUBLIC_URL).permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

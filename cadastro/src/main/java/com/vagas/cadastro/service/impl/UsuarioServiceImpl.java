@@ -3,6 +3,7 @@ package com.vagas.cadastro.service.impl;
 import com.vagas.cadastro.dto.request.UsuarioEditRequestDTO;
 import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
+import com.vagas.cadastro.model.Perfil;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.ArquivoRepository;
@@ -100,15 +101,24 @@ public class UsuarioServiceImpl implements UsuarioService {
                 pageable);
     }
 
-    private void setarPerfil(Long id, UsuarioRequestDTO dto) {
-        dto.getPerfil().setId(id);
+    private void setarPerfil(Long id, Usuario usuario) {
+        Perfil perfil = new Perfil();
+        if (id == 2) {
+            perfil.setNome(PerfilEnum.ROLE_ALUNO);
+        } else {
+            perfil.setNome(PerfilEnum.ROLE_PROFESSOR);
+        }
+        perfil.setId(id);
+        usuario.setPerfis(perfil);
     }
 
     @Override
     public void salvarUsuario(UsuarioRequestDTO dto) {
         validarImagem(dto);
+        validarCamposExistentes(dto);
         validarCampos(dto);
         Usuario usuario = dto.convert();
+        validarInformacoes(dto, usuario);
         usuario.setSenha(encoder.encode(dto.getSenha()));
         repository.save(usuario);
     }
@@ -130,7 +140,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         validarNuloECampoEmBranco(dto.getEmail(), "email");
         validarNuloECampoEmBranco(dto.getSenha(), "senha");
         validarNuloECampoEmBranco(dto.getMatricula(), "matricula");
-        validarInformacoes(dto);
     }
 
     private void validarNuloECampoEmBranco(String campo, String nome) {
@@ -139,33 +148,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
-    private void validarInformacoes(UsuarioRequestDTO dto) {
-        boolean aluno = dto.getPerfil().getNome().equals(PerfilEnum.ROLE_ALUNO);
-        boolean professor = dto.getPerfil().getNome().equals(PerfilEnum.ROLE_PROFESSOR);
-
-        validarCamposExistentes(dto);
+    private void validarInformacoes(UsuarioRequestDTO dto, Usuario usuario) {
 
         if (!isNull(dto.getArquivo())) {
             if (!arquivoRepository.existsById(dto.getArquivo().getId())) {
                 throw new RuntimeException("Id do arquivo inválido");
             }
         }
-        if (!isNull(dto.getPerfil().getId())) {
-            throw new RuntimeException("Não passe o Id do perfil");
-        }
-        if (!aluno && !professor) {
-            throw new RuntimeException("Nome de perfil incorreto");
-        }
-        if (aluno) {
-            setarPerfil(2L, dto);
-        }
-        if (professor) {
-            carregaMatriculas();
-            if (matriculasProfessor.contains(dto.getMatricula())) {
-                setarPerfil(3L, dto);
-            } else {
-                throw new RuntimeException("Não foi possivel criar o usuário");
-            }
+        carregaMatriculas();
+        if (matriculasProfessor.contains(dto.getMatricula())) {
+            setarPerfil(3L, usuario);
+        } else {
+            setarPerfil(2L, usuario);
         }
     }
 

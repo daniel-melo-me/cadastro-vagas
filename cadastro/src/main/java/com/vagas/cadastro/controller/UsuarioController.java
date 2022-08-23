@@ -2,7 +2,6 @@ package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.UsuarioEditRequestDTO;
 import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
-import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated UsuarioEditRequestDTO dto) {
+            @RequestBody @Valid UsuarioEditRequestDTO dto) {
         try {
             return ResponseEntity.ok(service.editar(id, dto));
         } catch (Exception e) {
@@ -66,7 +65,7 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public ResponseEntity<?> findPagedByFilter(
-            @RequestBody UsuarioRequestDTO filter,
+            @RequestBody @Valid UsuarioRequestDTO filter,
             Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.findPagedByFilters(filter, pageable));

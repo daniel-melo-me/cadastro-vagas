@@ -1,5 +1,6 @@
 package com.vagas.cadastro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,6 +26,7 @@ public class Arquivo implements Serializable {
     private String fileType;
 
     @Lob
+    @JsonIgnore
     private byte[] data;
 
     public Arquivo(String fileName, String contentType, byte[] bytes) {

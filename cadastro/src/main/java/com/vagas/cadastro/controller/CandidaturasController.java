@@ -1,7 +1,6 @@
 package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.CandidaturasRequestDTO;
-import com.vagas.cadastro.model.Candidaturas;
 import com.vagas.cadastro.service.CandidaturasService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class CandidaturasController {
     @PostMapping("/criar")
     @PreAuthorize("hasRole('ALUNO') or hasRole('ADMIN')")
     @Transactional
-    public ResponseEntity<?> criar(@RequestBody @Validated CandidaturasRequestDTO dto) {
+    public ResponseEntity<?> criar(@RequestBody @Valid CandidaturasRequestDTO dto) {
         try {
             service.salvar(dto);
             return ResponseEntity.status(201).build();
@@ -75,7 +74,7 @@ public class CandidaturasController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated CandidaturasRequestDTO dto) {
+            @RequestBody @Valid CandidaturasRequestDTO dto) {
         try {
             return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {

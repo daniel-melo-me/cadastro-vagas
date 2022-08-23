@@ -1,7 +1,6 @@
 package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.VagaRequestDTO;
-import com.vagas.cadastro.model.Vaga;
 import com.vagas.cadastro.service.VagaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class VagaController {
     @PostMapping("/criar")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
     @Transactional
-    public ResponseEntity<?> criar(@RequestBody @Validated VagaRequestDTO dto) {
+    public ResponseEntity<?> criar(@RequestBody @Valid VagaRequestDTO dto) {
         try {
             service.salvar(dto);
             return ResponseEntity.status(201).build();
@@ -64,7 +63,7 @@ public class VagaController {
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
     public ResponseEntity<?> findPagedByFilter(
-            @RequestBody VagaRequestDTO filter,
+            @RequestBody @Valid VagaRequestDTO filter,
             Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.findPagedByFilters(filter, pageable));
@@ -74,7 +73,6 @@ public class VagaController {
     }
 
     @GetMapping("/listar")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     public ResponseEntity<?> listar(Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.listar(pageable));
@@ -88,7 +86,7 @@ public class VagaController {
     @Transactional
     public ResponseEntity<?> editar(
             @PathVariable(value = "id") Long id,
-            @RequestBody @Validated VagaRequestDTO dto) {
+            @RequestBody @Valid VagaRequestDTO dto) {
         try {
             return ResponseEntity.ok().body(service.editar(id, dto));
         } catch (Exception e) {
