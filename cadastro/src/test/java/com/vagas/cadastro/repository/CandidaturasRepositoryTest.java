@@ -1,15 +1,12 @@
 package com.vagas.cadastro.repository;
 
-import com.vagas.cadastro.model.Perfil;
-import com.vagas.cadastro.model.Usuario;
-import com.vagas.cadastro.model.Vaga;
+import com.vagas.cadastro.model.*;
 import com.vagas.cadastro.model.enumeration.InstitucionalEnum;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,18 +21,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class VagaRepositoryTest {
+public class CandidaturasRepositoryTest {
 
     @Autowired
-    private VagaRepository repository;
+    private CandidaturasRepository repository;
     @Autowired
     private PerfilRepository perfilRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private VagaRepository vagaRepository;
+    @Autowired
+    private CurriculoRepository curriculoRepository;
+    @Autowired
+    private ArquivoRepository arquivoRepository;
+    private Candidaturas candidaturas;
     private Vaga vaga;
 
     @BeforeEach
     public void setup() {
+        candidaturas = new Candidaturas();
+
         Usuario usuario = new Usuario();
         usuario.setMatricula("20123213");
         usuario.setSenha("324234");
@@ -56,7 +62,23 @@ public class VagaRepositoryTest {
         vaga.setExpiracao(LocalDateTime.of(2023, 12, 12, 12, 23));
         vaga.setLink("www.teste.com.br");
         vaga.setUsuario(usuario);
-        repository.save(vaga);
+        vagaRepository.save(vaga);
+
+        Curriculo curriculo = new Curriculo();
+        curriculo.setDescricao("teste");
+        Arquivo arquivo = new Arquivo();
+        arquivo.setFileName("Manual RNServiceVirtualization.pdf");
+        arquivo.setFileType("application/pdf");
+        byte[] data = new byte[5];
+        arquivo.setData(data);
+        arquivoRepository.save(arquivo);
+        curriculo.setArquivo(arquivo);
+        curriculo.setUsuario(usuario);
+        curriculoRepository.save(curriculo);
+
+        candidaturas.setCurriculo(curriculo);
+        candidaturas.setVaga(vaga);
+        repository.save(candidaturas);
     }
 
     @AfterEach
@@ -64,21 +86,23 @@ public class VagaRepositoryTest {
         repository.deleteAll();
         perfilRepository.deleteAll();
         usuarioRepository.deleteAll();
+        vagaRepository.deleteAll();
+        curriculoRepository.deleteAll();
+        arquivoRepository.deleteAll();
     }
 
     @Test
-    @DisplayName("Esse Teste tem como objetivo criar uma vaga e após isso verificar pelo seu id")
-    public void deveCriarUmaVagaVerificandoPeloId() {
+    public void deveCriarUmaCandidaturaERetornarUmId() {
         setup();
-        Assert.assertTrue(repository.existsById(vaga.getId()));
+        Assert.assertTrue(repository.existsById(candidaturas.getId()));
     }
 
     @Test
-    public void deveDeletarUmaVaga() {
+    public void deveDeletarUmaCandidatura() {
         setup();
-        repository.delete(vaga);
+        repository.delete(candidaturas);
 
-        Iterable<Vaga> all = repository.findAll();
+        Iterable<Candidaturas> all = repository.findAll();
         AtomicInteger counter = new AtomicInteger();
         all.forEach(it -> counter.getAndIncrement());
 
@@ -86,24 +110,29 @@ public class VagaRepositoryTest {
     }
 
     @Test
-    public void deveEditarUmaVaga() {
+    public void deveEditarUmaCandidatura() {
         setup();
-        vaga.setTitulo("novoTitulo");
-        Assert.assertEquals("novoTitulo", vaga.getTitulo());
+
+        Vaga newVaga = new Vaga();
+        vaga.setTitulo("new teste criar vaga");
+        vaga.setInstitucional(InstitucionalEnum.EXTERNO);
+        vaga.setDescricao("Descrição da vaga");
+        vaga.setExpiracao(LocalDateTime.of(2023, 12, 12, 12, 23));
+        vaga.setLink("www.teste.com.br");
+        candidaturas.setVaga(newVaga);
+
+        Assert.assertEquals(newVaga, candidaturas.getVaga());
     }
 
     @Test
-    public void deveRetornarUmaListaDeVagas() {
+    public void deveRetornarUmaCandidatura() {
+        setup();
+        Assert.assertEquals(candidaturas, repository.findById(candidaturas.getId()).orElse(null));
+    }
+
+    @Test
+    public void deveRetornarUmaListaDeCandidaturas() {
         setup();
         Assert.assertNotNull(repository.findAll());
-    }
-
-    @Test
-    public void deveFiltrarERetornarUmaListaDeVagas() {
-        setup();
-        Assert.assertNotNull(repository.findByTituloContainsOrDescricaoContains(
-                vaga.getTitulo(),
-                vaga.getDescricao(),
-                null));
     }
 }

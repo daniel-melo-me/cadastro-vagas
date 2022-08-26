@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "perfil")
-@ToString
 public class Perfil implements GrantedAuthority, Serializable {
 
     @Id
