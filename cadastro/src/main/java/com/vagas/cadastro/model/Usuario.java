@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuario")
-@ToString
 public class Usuario implements UserDetails, Serializable {
 
     @Id

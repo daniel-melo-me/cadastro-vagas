@@ -1,7 +1,6 @@
 package com.vagas.cadastro.repository;
 
-import com.vagas.cadastro.dto.request.TagsRequestDTO;
-import com.vagas.cadastro.model.Tags;
+import com.vagas.cadastro.model.Arquivo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -19,17 +18,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class TagsRepositoryTest {
+public class ArquivoRepositoryTest {
 
     @Autowired
-    private TagsRepository repository;
-    private Tags tags;
+    private ArquivoRepository repository;
+    private Arquivo arquivo;
 
     @BeforeEach
     public void setup() {
-        tags = new Tags();
-        tags.setNome("administração");
-        repository.save(tags);
+        arquivo = new Arquivo();
+        arquivo.setFileName("Manual RNServiceVirtualization.pdf");
+        arquivo.setFileType("application/pdf");
+        byte[] data = new byte[5];
+        arquivo.setData(data);
+        repository.save(arquivo);
     }
 
     @AfterEach
@@ -38,17 +40,17 @@ public class TagsRepositoryTest {
     }
 
     @Test
-    public void deveCriarUmaTagEVerificarPeloId() {
+    public void deveSalvarArquivoERetornarUmId() {
         setup();
-        Assert.assertTrue(repository.existsById(tags.getId()));
+        Assert.assertTrue(repository.existsById(arquivo.getId()));
     }
 
     @Test
-    public void deveDeletarUmaTag() {
+    public void deveDeletarUmArquivo() {
         setup();
-        repository.delete(tags);
+        repository.delete(arquivo);
 
-        Iterable<Tags> all = repository.findAll();
+        Iterable<Arquivo> all = repository.findAll();
         AtomicInteger counter = new AtomicInteger();
         all.forEach(it -> counter.getAndIncrement());
 
@@ -56,27 +58,17 @@ public class TagsRepositoryTest {
     }
 
     @Test
-    public void deveEditarUmaTag() {
+    public void deveEditarUmArquivo() {
         setup();
-        tags.setNome("Tecnologia");
+        byte[] newData = new byte[4];
+        arquivo.setData(newData);
 
-        Assert.assertEquals("Tecnologia", tags.getNome());
+        Assert.assertEquals(newData, arquivo.getData());
     }
 
     @Test
-    public void deveRetornarUmaListaDeTags() {
+    public void deveRetornarUmArquivo() {
         setup();
-        Tags tags2 = new Tags();
-        tags2.setNome("ciencia");
-        repository.save(tags2);
-
-        Assert.assertNotNull(repository.findAll());
-    }
-
-    @Test
-    public void deveFiltrarERetornarUmaListaEVerificarSeExisteNome() {
-        setup();
-        Assert.assertNotNull(repository.findFilterList(new TagsRequestDTO(tags), null));
-        Assert.assertTrue(repository.existsByNome(tags.getNome()));
+        Assert.assertEquals(arquivo, repository.findById(arquivo.getId()).orElse(null));
     }
 }

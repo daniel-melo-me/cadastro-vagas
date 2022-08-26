@@ -1,6 +1,8 @@
 package com.vagas.cadastro.repository;
 
+import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
+import com.vagas.cadastro.model.Curriculo;
 import com.vagas.cadastro.model.Perfil;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
@@ -21,19 +23,31 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class UsuarioRepositoryTest {
+public class CurriculoRepositoryTest {
 
     @Autowired
-    private UsuarioRepository repository;
+    private CurriculoRepository repository;
+    @Autowired
+    private ArquivoRepository arquivoRepository;
     @Autowired
     private PerfilRepository perfilRepository;
     @Autowired
-    private ArquivoRepository arquivoRepository;
-    private Usuario usuario;
+    private UsuarioRepository usuarioRepository;
+    private Curriculo curriculo;
 
     @BeforeEach
     public void setup() {
-        usuario = new Usuario();
+        curriculo = new Curriculo();
+        curriculo.setDescricao("teste");
+        Arquivo arquivo = new Arquivo();
+        arquivo.setFileName("Manual RNServiceVirtualization.pdf");
+        arquivo.setFileType("application/pdf");
+        byte[] data = new byte[5];
+        arquivo.setData(data);
+        arquivoRepository.save(arquivo);
+        curriculo.setArquivo(arquivo);
+
+        Usuario usuario = new Usuario();
         usuario.setMatricula("20123213");
         usuario.setSenha("324234");
         usuario.setEmail("afsdfsad@gmail.com");
@@ -47,32 +61,36 @@ public class UsuarioRepositoryTest {
         Arquivo imagem = new Arquivo();
         imagem.setFileName("Service_Virtualization_Vetor.png");
         imagem.setFileType("image/png");
-        byte[] data = new byte[5];
-        imagem.setData(data);
+        byte[] data2 = new byte[5];
+        imagem.setData(data2);
         arquivoRepository.save(imagem);
         usuario.setArquivo(imagem);
-        repository.save(usuario);
+        usuarioRepository.save(usuario);
+
+        curriculo.setUsuario(usuario);
+        repository.save(curriculo);
     }
 
     @AfterEach
     public void clean() {
         repository.deleteAll();
-        perfilRepository.deleteAll();
         arquivoRepository.deleteAll();
+        perfilRepository.deleteAll();
+        usuarioRepository.deleteAll();
     }
 
     @Test
-    public void deveCriarUmUsuarioEVerificarPeloId() {
+    public void deveCriarUmCurriculoEVerificarPeloId() {
         setup();
-        Assert.assertTrue(repository.existsById(usuario.getId()));
+        Assert.assertTrue(repository.existsById(curriculo.getId()));
     }
 
     @Test
-    public void deveDeletarUmUsuario() {
+    public void deveDeletarUmCurriculo() {
         setup();
-        repository.delete(usuario);
+        repository.delete(curriculo);
 
-        Iterable<Usuario> all = repository.findAll();
+        Iterable<Curriculo> all = repository.findAll();
         AtomicInteger counter = new AtomicInteger();
         all.forEach(it -> counter.getAndIncrement());
 
@@ -80,28 +98,23 @@ public class UsuarioRepositoryTest {
     }
 
     @Test
-    public void deveEditarUmUsuario() {
+    public void deveEditarUmCurriculo() {
         setup();
-        usuario.setNome("editado");
-        Assert.assertEquals("editado", usuario.getNome());
+        repository.save(curriculo);
+        curriculo.setDescricao("nova descrição");
+
+        Assert.assertEquals("nova descrição", curriculo.getDescricao());
     }
 
     @Test
-    public void deveRetornarUmaListaDeUsuarios() {
+    public void deveRetornarUmaListaDeCurriculos() {
         setup();
         Assert.assertNotNull(repository.findAll());
     }
 
     @Test
-    public void deveFiltrarERetornarUmaListaDeUsuariosVerificandoEmailEMatricula() {
+    public void deveFiltrarUmCurriculoERetornarUmaLista() {
         setup();
-        Assert.assertNotNull(repository.findByMatriculaContainsOrNomeContainsOrEmailContains(
-                usuario.getMatricula(),
-                usuario.getNome(),
-                usuario.getEmail(),
-                null
-        ));
-        Assert.assertTrue(repository.existsByEmail(usuario.getEmail()));
-        Assert.assertTrue(repository.existsByMatricula(usuario.getMatricula()));
+        Assert.assertNotNull(repository.findFilterList(new CurriculoRequestDTO(curriculo), null));
     }
 }

@@ -43,6 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario editar(Long id, UsuarioEditRequestDTO dto) {
+        // TODO: 24/08/2022 Adicionar verificação de ID'S(ver se é ele mesmo) atráves do boolean no login e senha
         verificarId(id);
         try {
             Usuario userMatricula = repository.getReferenceById(id);
@@ -65,6 +66,17 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+//    private void verificarAutorizacao(Long id) {
+//        Usuario usuarioPermissao = repository.getReferenceById(id);
+//        Usuario permissao = repository.verificarPermissaoUsuario(id, usuarioPermissao.getMatricula(), usuarioPermissao.getSenha());
+//        System.out.println(permissao);
+//        if (!usuarioPermissao.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
+//            if (isNull(permissao)) {
+//                throw new RuntimeException("Você não está autorizado a editar outros perfis");
+//            }
+//        }
+//    }
 
     public Boolean existsByEmail(String email) {
         return repository.existsByEmail(email);

@@ -61,7 +61,7 @@ public class CurriculoServiceImpl implements CurriculoService {
     @Override
     public Curriculo pesquisar(Long id) {
         if (repository.existsById(id)) {
-            return repository.findById(id).orElse(null);
+            return repository.findById(id).orElseThrow();
         }
         throw new RuntimeException("Curriculo não encontrado");
     }
