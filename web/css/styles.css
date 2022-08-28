@@ -116,6 +116,7 @@ h6 {
 
 .li-space-lg li {
 	margin-bottom: 0.375rem;
+	display: flex;
 }
 
 .indent {
