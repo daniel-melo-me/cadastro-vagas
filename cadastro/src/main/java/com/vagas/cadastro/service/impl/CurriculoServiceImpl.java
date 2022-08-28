@@ -38,12 +38,12 @@ public class CurriculoServiceImpl implements CurriculoService {
     }
 
     @Override
-    public void salvar(CurriculoRequestDTO dto) {
+    public Curriculo salvar(CurriculoRequestDTO dto) {
         validarArquivo(dto);
         validaExtencaoImagem(dto);
         Curriculo curriculo = dto.convert();
         validarTag(curriculo);
-        repository.save(curriculo);
+        return repository.save(curriculo);
     }
 
     private void validarArquivo(CurriculoRequestDTO dto) {

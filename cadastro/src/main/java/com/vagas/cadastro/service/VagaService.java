@@ -9,7 +9,7 @@ public interface VagaService {
 
     Page<Vaga> listar(Pageable pageable);
 
-    void salvar(VagaRequestDTO dto);
+    Vaga salvar(VagaRequestDTO dto);
 
     void deletar(Long id);
 
