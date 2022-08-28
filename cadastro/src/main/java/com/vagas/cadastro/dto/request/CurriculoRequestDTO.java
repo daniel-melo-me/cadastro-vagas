@@ -18,6 +18,8 @@ public class CurriculoRequestDTO {
     private Arquivo arquivo;
     private Usuario usuario;
     private List<Tags> tags;
+    @NotNull
+    private String titulo;
 
     public CurriculoRequestDTO() {
     }
@@ -28,6 +30,7 @@ public class CurriculoRequestDTO {
         this.arquivo = curriculo.getArquivo();
         this.usuario = curriculo.getUsuario();
         this.tags = curriculo.getTags();
+        this.titulo = curriculo.getTitulo();
     }
 
     public Curriculo convert() {
@@ -37,6 +40,7 @@ public class CurriculoRequestDTO {
         curriculo.setArquivo(this.arquivo);
         curriculo.setUsuario(this.usuario);
         curriculo.setTags(this.tags);
+        curriculo.setTitulo(this.titulo);
         return curriculo;
     }
 }

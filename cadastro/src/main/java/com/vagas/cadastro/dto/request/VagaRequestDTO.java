@@ -7,7 +7,6 @@ import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.Vaga;
 import com.vagas.cadastro.model.enumeration.InstitucionalEnum;
 import com.vagas.cadastro.model.enumeration.StatusEnum;
-import com.vagas.cadastro.repository.TagsRepository;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,14 +16,13 @@ import java.util.List;
 @Data
 public class VagaRequestDTO {
 
-    private TagsRepository tagsRepository;
-
     private Long id;
     @NotNull
     private String titulo;
     @NotNull
     private String descricao;
     private String link;
+    private String salario;
     @NotNull
     private InstitucionalEnum institucional;
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
@@ -47,6 +45,7 @@ public class VagaRequestDTO {
         this.status = vaga.getStatus();
         this.usuario = vaga.getUsuario();
         this.tags = vaga.getTags();
+        this.salario = vaga.getSalario();
     }
 
     public Vaga convert() {
@@ -60,6 +59,7 @@ public class VagaRequestDTO {
         vaga.setStatus(this.status);
         vaga.setUsuario(this.usuario);
         vaga.setTags(this.tags);
+        vaga.setSalario(this.salario);
         return vaga;
     }
 }

@@ -2,6 +2,9 @@ package com.vagas.cadastro.service.impl;
 
 import com.vagas.cadastro.dto.request.CandidaturasRequestDTO;
 import com.vagas.cadastro.model.Candidaturas;
+import com.vagas.cadastro.model.Curriculo;
+import com.vagas.cadastro.model.Vaga;
+import com.vagas.cadastro.model.enumeration.StatusEnum;
 import com.vagas.cadastro.repository.CandidaturasRepository;
 import com.vagas.cadastro.repository.CurriculoRepository;
 import com.vagas.cadastro.repository.VagaRepository;
@@ -31,6 +34,15 @@ public class CandidaturasServiceImpl implements CandidaturasService {
         validarCampos(dto);
         Candidaturas candidaturas = dto.convert();
         validarInformacoes(candidaturas);
+        Vaga vaga = vagaRepository.findById(dto.getVaga().getId()).orElseThrow(
+                () -> new RuntimeException("Vaga não encontrada")
+        );
+        if (vaga.getStatus().equals(StatusEnum.FINALIZADO)) {
+            throw new RuntimeException("Não é possivel se candidatar em uma vaga finalizada");
+        }
+        Curriculo curriculo = curriculoRepository.findById(dto.getCurriculo().getId()).orElseThrow();
+        candidaturas.setCurriculo(curriculo);
+        candidaturas.setVaga(vaga);
         return repository.save(candidaturas);
     }
 
@@ -42,20 +54,9 @@ public class CandidaturasServiceImpl implements CandidaturasService {
 
     @Override
     public Candidaturas pesquisar(Long id) {
-        if (repository.existsById(id)) {
-            return repository.findById(id).orElse(null);
-        }
-        throw new RuntimeException("Candidatura não encontrada");
-    }
-
-    @Override
-    public Candidaturas editar(Long id, CandidaturasRequestDTO dto) {
-        verificarId(id);
-        validarCampos(dto);
-        Candidaturas candidaturas = dto.convert();
-        validarInformacoes(candidaturas);
-        candidaturas.setId(id);
-        return repository.save(candidaturas);
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Candidatura não encontrada")
+        );
     }
 
     private void validarCampos(CandidaturasRequestDTO dto) {
