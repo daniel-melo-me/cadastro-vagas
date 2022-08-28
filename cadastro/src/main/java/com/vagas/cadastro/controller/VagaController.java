@@ -30,8 +30,7 @@ public class VagaController {
     @Transactional
     public ResponseEntity<?> criar(@RequestBody @Valid VagaRequestDTO dto) {
         try {
-            service.salvar(dto);
-            return ResponseEntity.status(201).build();
+            return ResponseEntity.status(201).body(service.salvar(dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

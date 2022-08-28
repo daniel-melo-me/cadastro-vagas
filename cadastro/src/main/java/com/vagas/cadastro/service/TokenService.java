@@ -19,6 +19,8 @@ public class TokenService {
     @Value("${vagas.jwt.senha}")
     private String secret;
 
+    private Long idUsuario;
+
     public String gerarToken(Authentication authentication) {
         Usuario logado = (Usuario) authentication.getPrincipal();
         Date hoje = new Date();
@@ -44,6 +46,11 @@ public class TokenService {
 
     public Long getIdUsuario(String token) {
         Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
+        this.idUsuario = Long.parseLong(claims.getSubject());
         return Long.parseLong(claims.getSubject());
+    }
+
+    public Long returnId() {
+        return this.idUsuario;
     }
 }

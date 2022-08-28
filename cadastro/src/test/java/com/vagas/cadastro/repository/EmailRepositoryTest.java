@@ -41,5 +41,4 @@ public class EmailRepositoryTest {
 
         Assert.assertTrue(repository.existsById(email.getId()));
     }
-
 }
