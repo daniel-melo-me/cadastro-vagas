@@ -1,7 +1,13 @@
 package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
+import com.vagas.cadastro.model.Curriculo;
+import com.vagas.cadastro.model.Usuario;
+import com.vagas.cadastro.model.enumeration.PerfilEnum;
+import com.vagas.cadastro.repository.CurriculoRepository;
+import com.vagas.cadastro.repository.UsuarioRepository;
 import com.vagas.cadastro.service.CurriculoService;
+import com.vagas.cadastro.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,13 +31,16 @@ public class CurriculoController {
     private final CurriculoService service;
     private final Map<String, String> retorno = new HashMap<>();
     private final Map<String, String> erro = new HashMap<>();
+    private final TokenService tokenService;
+    private final UsuarioRepository repository;
+    private final CurriculoRepository curriculoRepository;
 
     @PostMapping("/criar")
     @PreAuthorize("hasRole('ALUNO') or hasRole('ADMIN')")
     @Transactional
     public ResponseEntity<?> salvar(@RequestBody @Valid CurriculoRequestDTO dto) {
         try {
-            return ResponseEntity.status(201).body(service.salvar(dto));
+            return ResponseEntity.status(201).body(service.salvar(dto, tokenService.returnId()));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }
@@ -41,6 +51,9 @@ public class CurriculoController {
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         retorno.put("response", "Currículo deletado com sucesso!");
         try {
+            if (!verificacaoDePermissaoPeloId(id)) {
+                return ResponseEntity.status(401).build();
+            }
             service.deletar(id);
             return ResponseEntity.ok().body(retorno);
         } catch (Exception e) {
@@ -88,7 +101,10 @@ public class CurriculoController {
             @PathVariable(value = "id") Long id,
             @RequestBody @Valid CurriculoRequestDTO dto) {
         try {
-            return ResponseEntity.ok().body(service.editar(id, dto));
+            if (!verificacaoDePermissaoPeloId(id)) {
+                return ResponseEntity.status(401).build();
+            }
+            return ResponseEntity.ok().body(service.editar(id, dto, tokenService.returnId()));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }
@@ -98,5 +114,20 @@ public class CurriculoController {
         erro.put("erro", mensagem);
         log.error("Erro encontrado: " + mensagem);
         return ResponseEntity.badRequest().body(erro);
+    }
+
+    private boolean verificacaoDePermissaoPeloId(Long id) {
+        Usuario usuario = repository.findById(tokenService.returnId()).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado")
+        );
+        List<Curriculo> curriculos = curriculoRepository.findAll();
+        if (!usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
+            for (Curriculo curriculo : curriculos) {
+                if (curriculo.getUsuario().getId().equals(usuario.getId()) && curriculo.getId().equals(id)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

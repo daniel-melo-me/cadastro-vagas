@@ -38,6 +38,7 @@ public class CurriculoRepositoryTest {
     @BeforeEach
     public void setup() {
         curriculo = new Curriculo();
+        curriculo.setTitulo("titulo principal");
         curriculo.setDescricao("teste");
         Arquivo arquivo = new Arquivo();
         arquivo.setFileName("Manual RNServiceVirtualization.pdf");

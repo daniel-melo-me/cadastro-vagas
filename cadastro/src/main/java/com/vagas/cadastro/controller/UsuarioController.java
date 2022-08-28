@@ -104,7 +104,9 @@ public class UsuarioController {
     }
 
     private boolean verificacaoDePermissaoPeloId(Long id) {
-        Usuario usuario = repository.findById(tokenService.returnId()).orElseThrow();
+        Usuario usuario = repository.findById(tokenService.returnId()).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado")
+        );
         if (!usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
             return !Objects.equals(tokenService.returnId(), id);
         }

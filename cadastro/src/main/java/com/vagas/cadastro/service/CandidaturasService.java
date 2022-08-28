@@ -15,6 +15,4 @@ public interface CandidaturasService {
 
     Candidaturas pesquisar(Long id);
 
-    Candidaturas editar(Long id, CandidaturasRequestDTO dto);
-
 }

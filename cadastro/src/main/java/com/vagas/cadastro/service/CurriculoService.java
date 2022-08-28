@@ -9,7 +9,7 @@ public interface CurriculoService {
 
     Page<Curriculo> listar(Pageable pageable);
 
-    Curriculo salvar(CurriculoRequestDTO dto);
+    Curriculo salvar(CurriculoRequestDTO dto, Long idUser);
 
     void deletar(Long id);
 
@@ -17,6 +17,6 @@ public interface CurriculoService {
 
     Page<Curriculo> findPagedByFilters(CurriculoRequestDTO filter, Pageable pageable);
 
-    Curriculo editar(Long id, CurriculoRequestDTO dto);
+    Curriculo editar(Long id, CurriculoRequestDTO dto, Long idUser);
 
 }

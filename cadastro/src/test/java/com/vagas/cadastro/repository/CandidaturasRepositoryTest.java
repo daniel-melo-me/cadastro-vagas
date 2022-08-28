@@ -61,11 +61,13 @@ public class CandidaturasRepositoryTest {
         vaga.setDescricao("Descrição da vaga");
         vaga.setExpiracao(LocalDateTime.of(2023, 12, 12, 12, 23));
         vaga.setLink("www.teste.com.br");
+        vaga.setSalario("100,00");
         vaga.setUsuario(usuario);
         vagaRepository.save(vaga);
 
         Curriculo curriculo = new Curriculo();
         curriculo.setDescricao("teste");
+        curriculo.setTitulo("titulo principal");
         Arquivo arquivo = new Arquivo();
         arquivo.setFileName("Manual RNServiceVirtualization.pdf");
         arquivo.setFileType("application/pdf");

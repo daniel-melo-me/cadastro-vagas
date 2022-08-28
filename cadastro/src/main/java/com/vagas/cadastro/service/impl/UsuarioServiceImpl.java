@@ -8,7 +8,6 @@ import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.ArquivoRepository;
 import com.vagas.cadastro.repository.UsuarioRepository;
-import com.vagas.cadastro.service.TokenService;
 import com.vagas.cadastro.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static org.apache.logging.log4j.util.Strings.isBlank;
@@ -37,7 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             ".JPEG", ".jpeg", ".JFIF", ".jfif", ".BMP", ".bpm", ".PNG", ".png", "webp",
             ".PSD", ".psd", ".TIFF", ".tif", "EXIF", "exif", "RAW", "raw", "WEBP",
     };
-    private final TokenService tokenService;
 
     @Override
     public Page<Usuario> listar(Pageable pageable) {
@@ -46,8 +43,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario editar(Long id, UsuarioEditRequestDTO dto) {
-        // TODO: 24/08/2022 Adicionar verificação de ID'S(ver se é ele mesmo) atráves do boolean no login e senha
-        //verificacaoDePermissaoPeloId(id);
         verificarId(id);
         try {
             Usuario userMatricula = repository.getReferenceById(id);
@@ -57,10 +52,18 @@ public class UsuarioServiceImpl implements UsuarioService {
                     throw new RuntimeException("E-mail ja existente");
                 }
                 Usuario usuario = dto.convert();
-                Usuario perfil = repository.findById(id).orElseThrow();
+                Usuario perfil = repository.findById(id).orElseThrow(
+                        () -> new RuntimeException("Perfil não encontrado")
+                );
                 usuario.setMatricula(matricula);
                 usuario.setId(id);
                 usuario.setPerfis(perfil.getPerfis());
+                if (isNull(dto.getArquivo())) {
+                    Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow(
+                            () -> new RuntimeException("Arquivo não encontrado")
+                    );
+                    usuario.setArquivo(arquivo);
+                }
                 usuario.setSenha(encoder.encode(usuario.getSenha()));
                 repository.save(usuario);
                 return usuario;
@@ -82,16 +85,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void deletar(Long id) {
         verificarId(id);
-        //verificacaoDePermissaoPeloId(id);
         repository.deleteById(id);
     }
 
     @Override
     public Usuario pesquisar(Long id) {
-        if (repository.existsById(id)) {
-            return repository.findById(id).orElseThrow();
-        }
-        throw new RuntimeException("Usuário não encontrado");
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado")
+        );
     }
 
     @Override
@@ -124,6 +125,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         validarCamposExistentes(dto);
         validarCampos(dto);
         Usuario usuario = dto.convert();
+        if (!isNull(dto.getArquivo())) {
+            Arquivo arquivo = retornarArquivo(dto);
+            usuario.setArquivo(arquivo);
+        }
         validarInformacoes(dto, usuario);
         usuario.setSenha(encoder.encode(dto.getSenha()));
         return repository.save(usuario);
@@ -132,13 +137,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     private void validarImagem(UsuarioRequestDTO dto) {
         carregaExtensaoImagens();
         if (!isNull(dto.getArquivo())) {
-            Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow();
+            Arquivo arquivo = retornarArquivo(dto);
             int digito = arquivo.getFileName().lastIndexOf(".");
             String extencao = arquivo.getFileName().substring(arquivo.getFileName().length() - (arquivo.getFileName().length() - digito));
             if (!extensaoImagens.contains(extencao)) {
                 throw new RuntimeException("Imagem com formato incorreto");
             }
         }
+    }
+
+    private Arquivo retornarArquivo(UsuarioRequestDTO dto) {
+        return arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow(
+                () -> new RuntimeException("Arquivo não encontrado")
+        );
     }
 
     private void validarCampos(UsuarioRequestDTO dto) {

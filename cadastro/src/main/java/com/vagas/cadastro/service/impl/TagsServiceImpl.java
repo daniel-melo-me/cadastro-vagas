@@ -38,10 +38,9 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public Tags pesquisar(Long id) {
-        if (repository.existsById(id)) {
-            return repository.findById(id).orElseThrow();
-        }
-        throw new RuntimeException("Tag não encontrada");
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Tag não encontrada")
+        );
     }
 
     @Override
