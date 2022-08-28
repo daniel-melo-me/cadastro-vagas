@@ -12,7 +12,7 @@ public interface UsuarioService {
 
     Usuario editar(Long id, UsuarioEditRequestDTO dto);
 
-    void salvarUsuario(UsuarioRequestDTO dto);
+    Usuario salvarUsuario(UsuarioRequestDTO dto);
 
     void deletar(Long id);
 

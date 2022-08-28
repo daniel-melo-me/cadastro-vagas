@@ -8,6 +8,7 @@ import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.ArquivoRepository;
 import com.vagas.cadastro.repository.UsuarioRepository;
+import com.vagas.cadastro.service.TokenService;
 import com.vagas.cadastro.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Objects.isNull;
 import static org.apache.logging.log4j.util.Strings.isBlank;
@@ -35,6 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             ".JPEG", ".jpeg", ".JFIF", ".jfif", ".BMP", ".bpm", ".PNG", ".png", "webp",
             ".PSD", ".psd", ".TIFF", ".tif", "EXIF", "exif", "RAW", "raw", "WEBP",
     };
+    private final TokenService tokenService;
 
     @Override
     public Page<Usuario> listar(Pageable pageable) {
@@ -44,6 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario editar(Long id, UsuarioEditRequestDTO dto) {
         // TODO: 24/08/2022 Adicionar verificação de ID'S(ver se é ele mesmo) atráves do boolean no login e senha
+        //verificacaoDePermissaoPeloId(id);
         verificarId(id);
         try {
             Usuario userMatricula = repository.getReferenceById(id);
@@ -67,17 +71,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
-//    private void verificarAutorizacao(Long id) {
-//        Usuario usuarioPermissao = repository.getReferenceById(id);
-//        Usuario permissao = repository.verificarPermissaoUsuario(id, usuarioPermissao.getMatricula(), usuarioPermissao.getSenha());
-//        System.out.println(permissao);
-//        if (!usuarioPermissao.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
-//            if (isNull(permissao)) {
-//                throw new RuntimeException("Você não está autorizado a editar outros perfis");
-//            }
-//        }
-//    }
-
     public Boolean existsByEmail(String email) {
         return repository.existsByEmail(email);
     }
@@ -89,6 +82,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void deletar(Long id) {
         verificarId(id);
+        //verificacaoDePermissaoPeloId(id);
         repository.deleteById(id);
     }
 
@@ -125,14 +119,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void salvarUsuario(UsuarioRequestDTO dto) {
+    public Usuario salvarUsuario(UsuarioRequestDTO dto) {
         validarImagem(dto);
         validarCamposExistentes(dto);
         validarCampos(dto);
         Usuario usuario = dto.convert();
         validarInformacoes(dto, usuario);
         usuario.setSenha(encoder.encode(dto.getSenha()));
-        repository.save(usuario);
+        return repository.save(usuario);
     }
 
     private void validarImagem(UsuarioRequestDTO dto) {

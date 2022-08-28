@@ -9,7 +9,7 @@ public interface CurriculoService {
 
     Page<Curriculo> listar(Pageable pageable);
 
-    void salvar(CurriculoRequestDTO dto);
+    Curriculo salvar(CurriculoRequestDTO dto);
 
     void deletar(Long id);
 

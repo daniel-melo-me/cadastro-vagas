@@ -39,7 +39,6 @@ public class AutenticacaoController {
             Authentication authentication = authManager.authenticate(dadosLogin);
             String token = tokenService.gerarToken(authentication);
             return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
-
         } catch (AuthenticationException e) {
             return retornoErro(e.getMessage());
         }
@@ -49,8 +48,7 @@ public class AutenticacaoController {
     @Transactional
     public ResponseEntity<?> registrar(@RequestBody @Valid UsuarioRequestDTO dto) {
         try {
-            service.salvarUsuario(dto);
-            return ResponseEntity.status(201).build();
+            return ResponseEntity.status(201).body(service.salvarUsuario(dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

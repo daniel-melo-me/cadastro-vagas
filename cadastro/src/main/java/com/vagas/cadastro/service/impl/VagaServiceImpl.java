@@ -33,13 +33,13 @@ public class VagaServiceImpl implements VagaService {
     }
 
     @Override
-    public void salvar(VagaRequestDTO dto) {
+    public Vaga salvar(VagaRequestDTO dto) {
         validar(dto);
         validarData(dto.getExpiracao());
         Vaga vaga = dto.convert();
         validarTag(vaga);
         vaga.setStatus(StatusEnum.ABERTO);
-        repository.save(vaga);
+        return repository.save(vaga);
     }
 
     @Override
@@ -120,10 +120,8 @@ public class VagaServiceImpl implements VagaService {
     private void validarTag(Vaga vaga) {
         if (!isNull(vaga.getTags())) {
             for (Tags tags : vaga.getTags()) {
-                if (!isNull(tags.getId())) {
-                    if (!tagsRepository.existsById(tags.getId())) {
-                        throw new RuntimeException("Tag não existente");
-                    }
+                if ((!isNull(tags.getId())) && (!tagsRepository.existsById(tags.getId()))) {
+                    throw new RuntimeException("Tag não existente");
                 }
             }
         }
