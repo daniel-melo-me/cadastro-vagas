@@ -652,7 +652,8 @@ input[type='checkbox'] {
 /*     03. Navigation     */
 /**************************/
 .navbar-custom {
-	background-color: #333E68;
+	background-color: #FFF;
+	/* background-color: #333E68; */
 	box-shadow: 0 0.0625rem 0.375rem 0 rgba(0, 0, 0, 0.1);
 	font: 700 0.875rem/0.875rem "Open Sans", sans-serif;
 	transition: all 0.2s;
@@ -759,9 +760,9 @@ input[type='checkbox'] {
 }
 
 .navbar-custom .navbar-toggler {
-	padding: 0;
+	padding: 2px 4px;
 	border: none;
-	color: #fff;
+	color: #333E68;
 	font-size: 2rem;
 }
 
