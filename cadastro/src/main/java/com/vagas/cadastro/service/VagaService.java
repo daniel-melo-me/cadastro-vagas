@@ -9,7 +9,7 @@ public interface VagaService {
 
     Page<Vaga> listar(Pageable pageable);
 
-    Vaga salvar(VagaRequestDTO dto);
+    Vaga salvar(VagaRequestDTO dto, Long idUser);
 
     void deletar(Long id);
 
@@ -17,6 +17,6 @@ public interface VagaService {
 
     Page<Vaga> findPagedByFilters(VagaRequestDTO filter, Pageable pageable);
 
-    Vaga editar(Long id, VagaRequestDTO dto);
+    Vaga editar(Long id, VagaRequestDTO dto, Long idUser);
 
 }

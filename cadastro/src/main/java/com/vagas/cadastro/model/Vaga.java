@@ -49,6 +49,8 @@ public class Vaga implements Serializable {
     @Column(length = 20)
     private StatusEnum status;
 
+    private String salario;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataCriacao = LocalDate.now();
 

@@ -2,9 +2,11 @@ package com.vagas.cadastro.service.impl;
 
 import com.vagas.cadastro.dto.request.VagaRequestDTO;
 import com.vagas.cadastro.model.Tags;
+import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.Vaga;
 import com.vagas.cadastro.model.enumeration.StatusEnum;
 import com.vagas.cadastro.repository.TagsRepository;
+import com.vagas.cadastro.repository.UsuarioRepository;
 import com.vagas.cadastro.repository.VagaRepository;
 import com.vagas.cadastro.service.VagaService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.util.ObjectUtils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 import static org.apache.logging.log4j.util.Strings.isBlank;
@@ -26,6 +30,7 @@ public class VagaServiceImpl implements VagaService {
 
     private final VagaRepository repository;
     private final TagsRepository tagsRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
     public Page<Vaga> listar(Pageable pageable) {
@@ -33,12 +38,17 @@ public class VagaServiceImpl implements VagaService {
     }
 
     @Override
-    public Vaga salvar(VagaRequestDTO dto) {
+    public Vaga salvar(VagaRequestDTO dto, Long idUser) {
         validar(dto);
         validarData(dto.getExpiracao());
         Vaga vaga = dto.convert();
         validarTag(vaga);
         vaga.setStatus(StatusEnum.ABERTO);
+        Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado")
+        );
+        vaga.setUsuario(usuario);
+        adicionarTags(dto, vaga);
         return repository.save(vaga);
     }
 
@@ -50,10 +60,9 @@ public class VagaServiceImpl implements VagaService {
 
     @Override
     public Vaga pesquisar(Long id) {
-        if (repository.existsById(id)) {
-            return repository.findById(id).orElseThrow();
-        }
-        throw new RuntimeException("Vaga não encontrada");
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Vaga não encontrada")
+        );
     }
 
     @Override
@@ -69,15 +78,19 @@ public class VagaServiceImpl implements VagaService {
     }
 
     @Override
-    public Vaga editar(Long id, VagaRequestDTO dto) {
+    public Vaga editar(Long id, VagaRequestDTO dto, Long idUser) {
         verificarId(id);
         if (repository.existsByTitulo(dto.getTitulo())) {
             throw new RuntimeException("Título já existente");
         }
         validarData(dto.getExpiracao());
         Vaga vaga = dto.convert();
+        Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado")
+        );
         validarTag(vaga);
         vaga.setId(id);
+        vaga.setUsuario(usuario);
         return repository.save(vaga);
     }
 
@@ -115,6 +128,18 @@ public class VagaServiceImpl implements VagaService {
         } catch (DateTimeParseException e) {
             throw new RuntimeException("Formato de data inválida");
         }
+    }
+
+    private void adicionarTags(VagaRequestDTO dto, Vaga vaga) {
+        List<Tags> tagsList = dto.getTags();
+        List<Tags> addTags = new ArrayList<>();
+        for (Tags tag : tagsList) {
+            Tags tags = tagsRepository.findById(tag.getId()).orElseThrow(
+                    () -> new RuntimeException("Tag não encontrada")
+            );
+            addTags.add(tags);
+        }
+        vaga.setTags(addTags);
     }
 
     private void validarTag(Vaga vaga) {

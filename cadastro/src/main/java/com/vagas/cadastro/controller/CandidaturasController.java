@@ -68,19 +68,6 @@ public class CandidaturasController {
         }
     }
 
-    @PutMapping("/editar/{id}")
-    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
-    @Transactional
-    public ResponseEntity<?> editar(
-            @PathVariable(value = "id") Long id,
-            @RequestBody @Valid CandidaturasRequestDTO dto) {
-        try {
-            return ResponseEntity.ok().body(service.editar(id, dto));
-        } catch (Exception e) {
-            return retornoErro(e.getMessage());
-        }
-    }
-
     private ResponseEntity<?> retornoErro(String mensagem) {
         erro.put("erro", mensagem);
         log.error("Erro encontrado: " + mensagem);

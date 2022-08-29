@@ -56,6 +56,7 @@ public class VagaRepositoryTest {
         vaga.setExpiracao(LocalDateTime.of(2023, 12, 12, 12, 23));
         vaga.setLink("www.teste.com.br");
         vaga.setUsuario(usuario);
+        vaga.setSalario("100,00");
         repository.save(vaga);
     }
 

@@ -21,6 +21,8 @@ public class Curriculo implements Serializable {
     private Long id;
 
     private String descricao;
+    @Column(nullable = false)
+    private String titulo;
 
     @OneToOne
     @JoinColumn(name = "arquivo_id", nullable = false)
