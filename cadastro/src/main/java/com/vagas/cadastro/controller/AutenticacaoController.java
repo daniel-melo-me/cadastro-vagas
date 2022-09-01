@@ -44,6 +44,16 @@ public class AutenticacaoController {
         }
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> deslogar() {
+        try {
+            tokenService.deslogar();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return retornoErro(e.getMessage());
+        }
+    }
+
     @PostMapping("/cadastro")
     @Transactional
     public ResponseEntity<?> registrar(@RequestBody @Valid UsuarioRequestDTO dto) {

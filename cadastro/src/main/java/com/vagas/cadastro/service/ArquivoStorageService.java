@@ -53,6 +53,13 @@ public class ArquivoStorageService {
     }
 
     public void deleteFile(String fileId) {
+        verificarId(fileId);
         repository.deleteById(fileId);
+    }
+
+    private void verificarId(String id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Id não encontrado");
+        }
     }
 }

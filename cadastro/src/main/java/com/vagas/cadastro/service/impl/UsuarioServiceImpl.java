@@ -52,25 +52,50 @@ public class UsuarioServiceImpl implements UsuarioService {
                     throw new RuntimeException("E-mail ja existente");
                 }
                 Usuario usuario = dto.convert();
-                Usuario perfil = repository.findById(id).orElseThrow(
+                Usuario user = repository.findById(id).orElseThrow(
                         () -> new RuntimeException("Perfil não encontrado")
                 );
+                setarDTO(dto, usuario, user);
+                setarCampos(usuario, user);
                 usuario.setMatricula(matricula);
                 usuario.setId(id);
-                usuario.setPerfis(perfil.getPerfis());
-                if (isNull(dto.getArquivo())) {
-                    Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow(
-                            () -> new RuntimeException("Arquivo não encontrado")
-                    );
-                    usuario.setArquivo(arquivo);
-                }
-                usuario.setSenha(encoder.encode(usuario.getSenha()));
+                usuario.setPerfis(user.getPerfis());
                 repository.save(usuario);
                 return usuario;
             }
             throw new RuntimeException("erro desconhecido");
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private void setarDTO(UsuarioEditRequestDTO dto,
+                          Usuario usuario,
+                          Usuario user) {
+        if (!isNull(dto.getArquivo())) {
+            Arquivo arquivo = arquivoRepository.findById(dto.getArquivo().getId()).orElseThrow(
+                    () -> new RuntimeException("Arquivo não encontrado")
+            );
+            usuario.setArquivo(arquivo);
+        } else {
+            usuario.setArquivo(user.getArquivo());
+        }
+        if (!isNull(dto.getSenha())) {
+            usuario.setSenha(encoder.encode(dto.getSenha()));
+        } else {
+            usuario.setSenha(user.getSenha());
+        }
+    }
+
+    private void setarCampos(Usuario usuario, Usuario user) {
+        if (isNull(usuario.getSenha()) || isBlank(usuario.getSenha())) {
+            usuario.setSenha(user.getSenha());
+        }
+        if (isNull(usuario.getEmail()) || isBlank(usuario.getEmail())) {
+            usuario.setEmail(user.getEmail());
+        }
+        if (isNull(usuario.getNome()) || isBlank(usuario.getNome())) {
+            usuario.setNome(user.getNome());
         }
     }
 
