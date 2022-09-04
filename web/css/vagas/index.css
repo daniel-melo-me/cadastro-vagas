@@ -27,3 +27,34 @@ th {
     color: #fff;
     border-top: none;
 }
+
+/* VERIFICAR SE FICA LEGAL
+.ifFooter {
+    width: 100% !important;
+    height: 395px !important;
+}
+
+.acoes {
+    width: 13% !important;
+    text-align: center !important;
+}
+
+.trCss {
+    background-color: #fff !important;
+}
+
+table {
+    border-collapse:separate;
+    border-radius:6px;
+}
+
+td, th {
+    border-top:solid #CCD7EC 3px;
+    border-radius:5px;
+}
+
+th {
+    background-color: #333E68;
+    color: #CCD7EC;
+    border-top: none;
+}*/
