@@ -2,3 +2,28 @@
     width: 100% !important;
     height: 395px !important;
 }
+
+.acoes {
+    width: 13% !important;
+    text-align: center !important;
+}
+
+.trCss {
+    background-color: #CCD7EC !important;
+}
+
+table {
+    border-collapse:separate;
+    border-radius:6px;
+}
+
+td, th {
+    border-top:solid rgb(255, 255, 255) 3px;
+    border-radius:5px;
+}
+
+th {
+    background-color: #333E68;
+    color: #fff;
+    border-top: none;
+}
