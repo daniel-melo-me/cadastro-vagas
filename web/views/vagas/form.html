@@ -27,7 +27,7 @@
     <link href="../../css/plugins/swipper/swiper.css" rel="stylesheet">
 	<link href="../../css/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
 	<link href="../../css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/login/index.css">
+    <link href="../../css/cadastro/index.css" rel="stylesheet">
 	
 	<!-- Favicon  -->
     <link rel="icon" href="../../images/favicon.png">
@@ -43,6 +43,7 @@
         </div>
     </div>
     <!-- end of preloader -->
+    
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -66,7 +67,6 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="../../index.html">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <!-- Dropdown Menu -->          
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle page-scroll" href="../perfil/index.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">PERFIL</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -80,12 +80,8 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="../vagas/index.html">VAGAS</a>
                     </li>
-                    <!-- end of dropdown menu -->
 
                 </ul>
-                <span class="nav-item">
-                    <a class="btn-outline-sm" href="index.html">LOG IN</a>
-                </span>
             </div>
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
@@ -97,26 +93,45 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Iniciar sessão</h1>
-                    <p>Você não tem uma senha? Então, por favor <a class="white" href="../cadastro/index.html">Inscreva-se</a></p> 
+                    <h1>Cadastre sua Vaga</h1>
+                <p>Preencha o formulário abaixo para cadastrar sua vaga </p> 
                     <!-- Sign Up Form -->
                     <div class="form-container">
-                        <form id="logInForm" data-toggle="validator" data-focus="false">
+                        <form id="signUpForm" data-toggle="validator" data-focus="false">
+
                             <div class="form-group">
-                                <input type="email" class="form-control-input" id="lemail" required>
-                                <label class="label-control" for="lemail">E-mail</label>
+                                <input type="text" class="form-control-input" id="titulo" required>
+                                <label class="label-control" for="titulo">Titulo</label>
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control-input" id="lpassword" required>
-                                <label class="label-control" for="lpassword">Senha</label>
+                                <textarea class="form-control-input" id="descricao" required ></textarea>
+                                <label class="label-control" for="descricao">Descrição</label>
+                             
                                 <div class="help-block with-errors"></div>
                             </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-text">
+                                    <div class="form-check">
+                                        <label>
+                                            Sim
+                                            <input class="form-check-input mt-0" name="instituicional" type="radio" value="true" aria-label="Checkbox for following text input">
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label>
+                                            Não
+                                            <input class="form-check-input mt-0" name="instituicional" type="radio" value="false" aria-label="Checkbox for following text input">
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="link" disabled>
+                              </div>              
                             <div class="form-group">
-                                <button type="submit" class="form-control-submit-button">Logar</button>
+                                <button type="submit" class="form-control-submit-button">Cadastrar</button>
                             </div>
                             <div class="form-message">
-                                <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                                <div id="smsgSubmit" class="h3 text-center hidden"></div>
                             </div>
                         </form>
                     </div> <!-- end of form container -->
@@ -141,6 +156,6 @@
     <script src="../../js/plugins/jquery/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
     <script src="../../js/plugins/validator/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="../../js/scripts.js"></script> <!-- Custom scripts -->
-    <script src="../../js/login/index.js"></script> <!-- Custom scripts -->
+    <script src="../../js/cadastro/index.js"></script> <!-- Custom scripts -->
 </body>
 </html>
