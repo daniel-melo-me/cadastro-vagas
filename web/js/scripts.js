@@ -397,4 +397,15 @@
 		$(this).blur();
 	});
 
+    $('.navbar-toggler').on('click', function() {
+        var collapse = $('.navbar-collapse');
+
+        if ( collapse.hasClass('collapse')) {
+            collapse.addClass('show').removeClass('collapse');
+        }
+        else  {
+            collapse.removeClass('show').addClass('collapse');
+        }
+    });
+
 })(jQuery);

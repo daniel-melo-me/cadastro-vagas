@@ -751,13 +751,6 @@ input[type='checkbox'] {
 	margin-top: 0.25rem;
 	margin-bottom: 1.375rem;
 	margin-left: 0.5rem;
-	border: 0.125rem solid #fff;
-	color: #fff;
-}
-
-.navbar-custom .nav-item .btn-outline-sm:hover {
-	background-color: #fff;
-	color: #333E68;
 }
 
 .navbar-custom .navbar-toggler {
@@ -1724,6 +1717,11 @@ a:hover.back-to-top {
 	}
 	/* end of sign up and log in pages */
 }
+
+.navbar-collapse {
+	transition: all ease .35s;
+}
+
 /* end of min-width width 768px */
 
 
