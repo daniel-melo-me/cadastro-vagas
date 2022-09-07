@@ -2164,3 +2164,14 @@ a:hover.back-to-top {
 
 
 /* end of min-width width 1200px */
+
+.ifFooter {
+    width: 100% !important;
+    height: 395px !important;
+}
+
+@media (max-width: 768px) {
+	.ifFooter {
+		height: 570px !important;
+	}
+}
