@@ -7,6 +7,7 @@ import com.vagas.cadastro.model.Perfil;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.ArquivoRepository;
+import com.vagas.cadastro.repository.PerfilRepository;
 import com.vagas.cadastro.repository.UsuarioRepository;
 import com.vagas.cadastro.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
+    private final PerfilRepository perfilRepository;
     private final UsuarioRepository repository;
     private final ArquivoRepository arquivoRepository;
     private final PasswordEncoder encoder;
@@ -132,6 +135,38 @@ public class UsuarioServiceImpl implements UsuarioService {
                 filter.getEmail(),
                 pageable);
     }
+
+    @Override
+    public void configurar() {
+        Perfil admin = new Perfil();
+        Perfil aluno = new Perfil();
+        Perfil professor = new Perfil();
+        setPerfil(professor, 3L, PerfilEnum.ROLE_PROFESSOR);
+        setPerfil(aluno, 2L, PerfilEnum.ROLE_ALUNO);
+        setPerfil(admin, 1L, PerfilEnum.ROLE_ADMIN);
+        saveUsuarioMaster();
+    }
+
+    private void saveUsuarioMaster() {
+        Usuario usuarioMaster = new Usuario();
+        usuarioMaster.setMatricula("admin");
+        usuarioMaster.setEmail("admin@gmail.com");
+        usuarioMaster.setNome("admin");
+        Perfil perfil = perfilRepository.findById(1L).orElseThrow(
+                () -> new RuntimeException("Perfil não encontrado")
+        );
+        usuarioMaster.setPerfis(perfil);
+        usuarioMaster.setDataCriacao(LocalDate.now());
+        usuarioMaster.setSenha(encoder.encode("admin"));
+        repository.save(usuarioMaster);
+    }
+
+    private void setPerfil(Perfil perfil, Long id, PerfilEnum perfilEnum) {
+        perfil.setId(id);
+        perfil.setNome(perfilEnum);
+        perfilRepository.save(perfil);
+    }
+
 
     private void setarPerfil(Long id, Usuario usuario) {
         Perfil perfil = new Perfil();
