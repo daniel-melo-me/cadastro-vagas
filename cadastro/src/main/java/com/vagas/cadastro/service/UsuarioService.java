@@ -20,4 +20,5 @@ public interface UsuarioService {
 
     Page<Usuario> findPagedByFilters(UsuarioRequestDTO filter, Pageable pageable);
 
+    void configurar();
 }
