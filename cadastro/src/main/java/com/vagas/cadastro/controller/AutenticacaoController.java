@@ -45,6 +45,7 @@ public class AutenticacaoController {
     }
 
     @GetMapping("/config")
+    @Transactional
     public ResponseEntity<?> config() {
         try {
             service.configurar();
