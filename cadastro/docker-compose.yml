@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   cadastro-api-compose:
-    image: juniorfredes/api:8
+    image: juniorfredes/api:9
     ports:
       - "8080:8080"
     networks:
