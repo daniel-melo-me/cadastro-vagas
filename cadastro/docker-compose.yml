@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   cadastro-api-compose:
-    image: juniorfredes/api:9
+    image: juniorfredes/api:13
     ports:
       - "8080:8080"
     networks:
@@ -19,8 +19,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=banco123
-      - POSTGRES_DATABASE=vagas-cadastro
-      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=vagas-cadastro
+      - PGDATA=/var/lib/postgresql/data/pgdate
     networks:
       - production-network
     ports:
