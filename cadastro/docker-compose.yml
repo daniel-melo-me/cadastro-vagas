@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  cadastro-api-compose:
+    image: juniorfredes/api:13
+    ports:
+      - "8080:8080"
+    networks:
+      - production-network
+    restart: always
+    depends_on:
+      - db
+  db:
+    container_name: postgres
+    image: postgres:9.5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=banco123
+      - POSTGRES_DB=vagas-cadastro
+      - PGDATA=/var/lib/postgresql/data/pgdate
+    networks:
+      - production-network
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
+
+networks:
+  production-network:
+    driver:
+      bridge
