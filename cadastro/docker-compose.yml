@@ -23,7 +23,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdatabase
     networks:
       - production-network
-    ports:""
+    ports:
       - "5432:5432"
 
 volumes:
