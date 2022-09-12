@@ -44,10 +44,11 @@ public class AutenticacaoController {
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> deslogar() {
+    @GetMapping("/config")
+    @Transactional
+    public ResponseEntity<?> config() {
         try {
-            tokenService.deslogar();
+            service.configurar();
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return retornoErro(e.getMessage());
