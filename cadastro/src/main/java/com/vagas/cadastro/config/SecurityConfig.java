@@ -49,6 +49,7 @@ public class SecurityConfig {
 
         http.csrf().disable().cors().disable().authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/arquivo/uploadFile").permitAll()
                 .antMatchers(HttpMethod.GET, "/arquivo/downloadFile/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/email/enviar").permitAll()
