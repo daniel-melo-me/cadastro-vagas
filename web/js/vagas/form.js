@@ -1,3 +1,3 @@
 jQuery(function () {
-    $('#tags').selectpicker();
+    $(".areaAtuacao").chosen(); 
 });
