@@ -63,7 +63,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#video"><span class="item-text">MEUS DADOS</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span class="item-text">CURRÍCULO</span></a>
+                            <a class="dropdown-item" href="../../views/curriculo/form.html"><span class="item-text">CURRÍCULO</span></a>
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span class="item-text">PRIVACY POLICY</span></a>
                         </div>
@@ -84,10 +84,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="profile-img">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" id="avatar-preview"/>
                                 <div class="file btn btn-lg btn-primary">
-                                    Change Photo
-                                    <input type="file" name="file"/>
+                                    Alterar foto
+                                    <input type="file" name="photo" onchange="previewFile(this);" >
                                 </div>
                             </div>
                         </div>
@@ -99,10 +99,10 @@
                                         <p class="proile-rating">Criação: <span>25/04/2022</span></p>
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#video" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
+                                        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#video" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Vagas Relacionadas</a>
+                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Vagas Relacionadas</a>
                                     </li>
                                 </ul>
                             </div>
@@ -232,5 +232,6 @@
     <script src="../../js/plugins/validator/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="../../js/scripts.js"></script> <!-- Custom scripts -->
     <script src="../../js/vagas/index.js"></script> <!-- Custom scripts -->
+    <script src="../../js/perfil/index.js"></script> <!-- Custom scripts -->
 </body>
 </html>
