@@ -1,4 +1,13 @@
-jQuery(function () {
-    // Implementar aqui js relacionado a pagina cadastro/index.html
-    // Aos poucos ir retirando do script.js
-});
+($ => {
+    $(() => {
+        $('input[name=institucional]').on('change', function() {
+            
+            if ($(this).val() == 'false') {
+                $('#link').attr('disabled', false);
+            }
+            else {
+                $('#link').attr('disabled', true);
+            }
+        })
+    });
+})(jQuery);
