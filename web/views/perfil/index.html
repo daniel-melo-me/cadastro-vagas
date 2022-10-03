@@ -84,11 +84,15 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" id="avatar-preview"/>
+                        <img id="blah" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="your image"
+                        />
                         <div class="file btn btn-lg btn-primary">
                             Alterar foto
-                            <input type="file" name="photo" onchange="previewFile(this);" >
+                            <input accept="image/*" type='file' id="imgInp" />
                         </div>
+
+                        
+                        
                     </div>
                 </div>
                 <div class="col-md-6">
