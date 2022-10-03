@@ -97,6 +97,9 @@ th {
     min-width: none !important;
 }
 
+.chosen-container{
+    width: 100% !important;
+}
 /* VERIFICAR SE FICA LEGAL
 .ifFooter {
     width: 100% !important;

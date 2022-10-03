@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Tivo is a HTML landing page template built with Bootstrap to help you crate engaging presentations for SaaS apps and convert visitors into users.">
+    <meta name="description"
+        content="Tivo is a HTML landing page template built with Bootstrap to help you crate engaging presentations for SaaS apps and convert visitors into users.">
     <meta name="author" content="Inovatik">
 
     <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-	<meta property="og:site_name" content="" /> <!-- website name -->
-	<meta property="og:site" content="" /> <!-- website link -->
-	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
-	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
-	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
-	<meta property="og:type" content="article" />
+    <meta property="og:site_name" content="" /> <!-- website name -->
+    <meta property="og:site" content="" /> <!-- website link -->
+    <meta property="og:title" content="" /> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+    <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+    <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+    <meta property="og:type" content="article" />
 
     <!-- Website Title -->
     <title>Cadastro de Vagas</title>
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext">
     <link rel="stylesheet" href="../../css/plugins/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="../../css/plugins/datatable/datatables.min.css">
     <link rel="stylesheet" href="../../css/plugins/fontawensome/fontawesome-all.css">
     <link rel="stylesheet" href="../../css/plugins/swipper/swiper.css">
-	<link rel="stylesheet" href="../../css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="../../css/plugins/magnific-popup/magnific-popup.css">
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="../../css/vagas/index.css">
-	
-	<!-- Favicon  -->
+    <link rel="stylesheet" href="../../css/plugins/chosen/style.css">
+    <link rel="stylesheet" href="../../css/plugins/chosen/chosen.css">
+    <link rel="stylesheet" href="../../css/vagas/form.css">
+
+    <!-- Favicon  -->
     <link rel="icon" href="../../images/favicon.png">
 </head>
+
 <body data-spy="scroll" data-target=".fixed-top">
-    
+
     <!-- Preloader -->
-	<div class="spinner-wrapper">
+    <div class="spinner-wrapper">
         <div class="spinner">
             <div class="bounce1"></div>
             <div class="bounce2"></div>
@@ -44,7 +51,7 @@
         </div>
     </div>
     <!-- end of preloader -->
-    
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -54,10 +61,12 @@
             <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
 
             <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="../../index.html"><img src="../../images/primary.svg" alt="alternative"></a> 
-            
+            <a class="navbar-brand logo-image" href="../../index.html"><img src="../../images/primary.svg"
+                    alt="alternative"></a>
+
             <!-- Mobile Menu Toggle Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-awesome fas fa-bars"></span>
                 <span class="navbar-toggler-awesome fas fa-times"></span>
             </button>
@@ -66,25 +75,28 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="../../index.html#header">HOME <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">PERFIL</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../perfil/index.html"><span class="item-text">MEUS DADOS</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span class="item-text">CURRÍCULO</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span class="item-text">PRIVACY POLICY</span></a>
-                        </div>
+                        <a class="nav-link page-scroll" href="../../index.html#header">HOME <span
+                                class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="./index.html#header">VAGAS</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle page-scroll" href="#video" id="navbarDropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">PERFIL</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="../perfil/index.html"><span class="item-text">MEUS
+                                    DADOS</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span
+                                    class="item-text">CURRÍCULO</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span
+                                    class="item-text">PRIVACY POLICY</span></a>
+                        </div>
+                    </li>
                     <!-- end of dropdown menu -->
-
                 </ul>
-            
             </div>
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
@@ -97,8 +109,88 @@
                 <div class="col">
                     <h3>Nossas Vagas</h3>
                 </div>
+                <!-- Button trigger modal -->
                 <div class="d-flex align-items-center col justify-content-end">
-                    <a href="./form.html" class="btn btn-primary"><em class="fa fa-plus"></em> Nova Vaga</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <em class="fa fa-plus"></em> Nova Vaga
+                    </button>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cadastre sua Vaga</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-container">
+                                <form id="signUpForm" data-toggle="validator" data-focus="false">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control-input" id="titulo" required>
+                                        <label class="label-control" for="titulo">Titulo <small
+                                                class="text-danger">*</small></label>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control-input" id="descricao" required></textarea>
+                                        <label class="label-control" for="descricao">Descrição <small
+                                                class="text-danger">*</small></label>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <label class="label-select d-block w-100" for="area_atuacao">Áreas de
+                                        Interesse</label>
+                                    <div class="form-group">
+                                        <select multiple class="form-control areaAtuacao" id="area_atuacao">
+                                            <option value="1">Design</option>
+                                            <option value="2">HTML5</option>
+                                            <option value="3">CSS3</option>
+                                            <option value="4">jQuery</option>
+                                            <option value="5">BS4</option>
+                                            <option value="6">Bootstrap</option>
+                                            <option value="7">WordPress</option>
+                                            <option value="8">FrontEnd</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-text">
+                                            <div class="form-check">
+                                                <label>
+                                                    Sim
+                                                    <input class="form-check-input mt-0" name="institucional"
+                                                        type="radio" value="true"
+                                                        aria-label="Checkbox for following text input">
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label>
+                                                    Não
+                                                    <input class="form-check-input mt-0" name="institucional"
+                                                        type="radio" value="false"
+                                                        aria-label="Checkbox for following text input">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input type="text" id="link" class="form-control"
+                                            aria-label="Text input with checkbox" placeholder="link" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="form-control-submit-button">Cadastrar</button>
+                                    </div>
+                                    <div class="form-message">
+                                        <div id="smsgSubmit" class="h3 text-center hidden"></div>
+                                    </div>
+                                </form>
+                            </div> <!-- end of form container -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -117,164 +209,237 @@
                         <tbody>
                             <tr class="trCss">
                                 <td>Estágio Redes</td>
-                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar os pcs de geral quando pedirem.</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
                                 <td>Infra IFRS</td>
                                 <td>03/09/2022</td>
                                 <td>R$1200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Full Stack Python Developer</td>
-                                <td>Are you a Mid-Weight Full Stack Python Developer that wants to develop and implement your own concepts and strategies?.</td>
+                                <td>Are you a Mid-Weight Full Stack Python Developer that wants to develop and implement
+                                    your
+                                    own concepts and strategies?.</td>
                                 <td>Sparro AU</td>
                                 <td>03/05/2021</td>
                                 <td>AU$8200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>PhP Developer</td>
-                                <td>Our client is a Sydney-based Fin-tech company that focuses on innovation, engineering and product development for their key clients.</td>
-                                <td>Hays  Sydney</td>
+                                <td>Our client is a Sydney-based Fin-tech company that focuses on innovation,
+                                    engineering and
+                                    product development for their key clients.</td>
+                                <td>Hays Sydney</td>
                                 <td>01/09/2022</td>
                                 <td>R$1200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Technical Lead</td>
-                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar os pcs de geral quando pedirem.</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
                                 <td>Growth Faculty</td>
                                 <td>25/04/2022</td>
                                 <td>AU$10.200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Senior Front-end Developer</td>
-                                <td>Vero is a multi-channel messaging platform built for the modern data stack. Modern marketing and product teams all over the world use Vero to automate communications with over 750 million end-users.</td>
-                                <td>Vero  Sydney</td>
+                                <td>Vero is a multi-channel messaging platform built for the modern data stack. Modern
+                                    marketing
+                                    and product teams all over the world use Vero to automate communications with over
+                                    750
+                                    million end-users.</td>
+                                <td>Vero Sydney</td>
                                 <td>03/09/2022</td>
                                 <td>AU$4800,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Desenvolvedor(a) Back-end Node.js Júnior a Pleno (Remoto)</td>
-                                <td>Criação e manutenção em componentes front-end, visando qualidade e performance para o usuário final.</td>
+                                <td>Criação e manutenção em componentes front-end, visando qualidade e performance para
+                                    o
+                                    usuário final.</td>
                                 <td>GeekHunter</td>
                                 <td>03/09/2022</td>
                                 <td>A combinar</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Desenvolvedor de back end</td>
-                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar os pcs de geral quando pedirem.</td>
-                                <td>O2OBOTS  Florianópolis</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>O2OBOTS Florianópolis</td>
                                 <td>02/03/2022</td>
                                 <td>R$5800,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Desenvolvedor Fullstack</td>
-                                <td>A Recreativa é a primeira empresa de palavras cruzadas do Brazil e é a companheira assídua de muitas pessoas que procuram preencher suas horas vagas exercitando o cérebro, esquecendo seus problemas cotidianos e entrando num mundo especial que só as palavras cruzadas podem proporcionar.</td>
+                                <td>A Recreativa é a primeira empresa de palavras cruzadas do Brazil e é a companheira
+                                    assídua
+                                    de muitas pessoas que procuram preencher suas horas vagas exercitando o cérebro,
+                                    esquecendo
+                                    seus problemas cotidianos e entrando num mundo especial que só as palavras cruzadas
+                                    podem
+                                    proporcionar.</td>
                                 <td>A Recreativa</td>
                                 <td>25/02/2022</td>
                                 <td>A Combinar</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Desenvolvedor backend - Júnior</td>
-                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar os pcs de geral quando pedirem.</td>
-                                <td>SmartEnvios  Ribeirão Preto,</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>SmartEnvios Ribeirão Preto,</td>
                                 <td>12/02/2022</td>
                                 <td>R$3500,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Candidatar-se"><button class="btn btn-success">Candidatar-se</button></a>
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Estágiário(a) de Serviços</td>
-                                <td>Como estagiário você vai conhecer na prática o atendimento ao cliente, e por meio dele ajudá-lo a resolver seus problemas técnicos ou ajudá-lo com duvidas.</td>
-                                <td>Teknisa  Belo Horizonte</td>
+                                <td>Como estagiário você vai conhecer na prática o atendimento ao cliente, e por meio
+                                    dele
+                                    ajudá-lo a resolver seus problemas técnicos ou ajudá-lo com duvidas.</td>
+                                <td>Teknisa Belo Horizonte</td>
                                 <td>31/08/2022</td>
                                 <td>R$1200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>System Architect</td>
-                                <td>As a System Architect, you will be able to adopt the best development practices in PHP Laravel, Angular and Ionic technologies, driving and providing best approaches for a US Company product, using MVC architecture and exposing REST API as Backend. You will lead a 12+ developers and analysts to deliver a high quality product.</td>
-                                <td>Brilliant Machine  Rio de Janeiro</td>
+                                <td>As a System Architect, you will be able to adopt the best development practices in
+                                    PHP
+                                    Laravel, Angular and Ionic technologies, driving and providing best approaches for a
+                                    US
+                                    Company product, using MVC architecture and exposing REST API as Backend. You will
+                                    lead a
+                                    12+ developers and analysts to deliver a high quality product.</td>
+                                <td>Brilliant Machine Rio de Janeiro</td>
                                 <td>25/08/2022</td>
                                 <td>A combinar</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Desenvolvedor(a) React</td>
-                                <td>Nivel de atuacao: Especialistas | Area de atuacao: Tecnologia, Informatica e Internet | Escolaridade minima: Superior Completo | Principais atividades: Estamos contratando Desenvolvedor PHP/React para projetos de transformacao digital, desenvolvendo ferramentas inovadoras para entregar a melhor experiencia para os usuarios da plataforma de uma grande empresa..</td>
-                                <td>innolevels  Rio de Janeiro</td>
+                                <td>Nivel de atuacao: Especialistas | Area de atuacao: Tecnologia, Informatica e
+                                    Internet |
+                                    Escolaridade minima: Superior Completo | Principais atividades: Estamos contratando
+                                    Desenvolvedor PHP/React para projetos de transformacao digital, desenvolvendo
+                                    ferramentas
+                                    inovadoras para entregar a melhor experiencia para os usuarios da plataforma de uma
+                                    grande
+                                    empresa..</td>
+                                <td>innolevels Rio de Janeiro</td>
                                 <td>03/11/2022</td>
                                 <td>R$9200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Frontend Developer</td>
-                                <td>Analisar, planejar e desenvolver aplicações com Ionic e Angular que além de atender os requisitos funcionais, ofereça performance e usabilidade adequada.</td>
-                                <td>Ambra Gaming  Brasil Remoto</td>
+                                <td>Analisar, planejar e desenvolver aplicações com Ionic e Angular que além de atender
+                                    os
+                                    requisitos funcionais, ofereça performance e usabilidade adequada.</td>
+                                <td>Ambra Gaming Brasil Remoto</td>
                                 <td>03/05/2022</td>
                                 <td>R$4200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>DevOps</td>
-                                <td>Pioneira no Brasil com mais de uma década de expertise em marketing de afiliação, a Afilio é uma experiente plataforma de negócios que conecta grandes anunciantes a uma rede de afiliados que promovem vendas online em seus canais.</td>
-                                <td>Afilio  Rio de Janeiro</td>
+                                <td>Pioneira no Brasil com mais de uma década de expertise em marketing de afiliação, a
+                                    Afilio é
+                                    uma experiente plataforma de negócios que conecta grandes anunciantes a uma rede de
+                                    afiliados que promovem vendas online em seus canais.</td>
+                                <td>Afilio Rio de Janeiro</td>
                                 <td>01/05/2022</td>
                                 <td>R$7400,13</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                             <tr class="trCss">
                                 <td>Analista</td>
-                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar os pcs de geral quando pedirem.</td>
-                                <td>Thymus  São Paulo</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>Thymus São Paulo</td>
                                 <td>25/10/2022</td>
                                 <td>R$4200,00</td>
                                 <td class="acoes">
-                                    <a  href="vaga/form/1" title="Editar"><button class="btn btn-info"><em class="fa fa-edit"></em> </button></a>
-                                    <a  href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em class="fa fa-power-off"></em></button></a>
-                                    <a  href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em class="fa fa-trash"></em> </button></a>
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -296,21 +461,27 @@
     <!-- end of privacy content -->
 
     <!-- Footer -->
-    
+
     <iframe class="ifFooter" src="../footer/index.html" frameborder="0"></iframe>
-    
+
     <!-- end of footer -->
 
     <!-- Scripts -->
     <script src="../../js/plugins/jquery/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="../../js/plugins/popper/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
     <script src="../../js/plugins/bootstrap/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-    <script src="../../js/plugins/jquery/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="../../js/plugins/jquery/jquery.easing.min.js"></script>
+    <!-- jQuery Easing for smooth scrolling between anchors -->
     <script src="../../js/plugins/swiper/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
     <script src="../../js/plugins/jquery/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-    <script src="../../js/plugins/validator/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="../../js/plugins/validator/validator.min.js"></script>
+    <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="../../js/plugins/datatable/datatables.min.js"></script> <!-- Datatables.js - Datatables -->
     <script src="../../js/scripts.js"></script> <!-- Custom scripts -->
     <script src="../../js/vagas/index.js"></script> <!-- Custom scripts -->
+    <script src="../../js/vagas/form.js"></script>
+    <script src="../../js/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="../../js/cadastro/index.js"></script>
 </body>
+
 </html>

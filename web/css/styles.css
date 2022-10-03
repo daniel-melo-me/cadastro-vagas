@@ -659,10 +659,6 @@ input[type='checkbox'] {
 	transition: all 0.2s;
 }
 
-.navbar-custom .container {
-	max-width: 87.5rem;
-}
-
 .navbar-custom .navbar-brand.logo-image img {
     width: 120px;
 	height: 60px;
