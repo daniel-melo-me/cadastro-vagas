@@ -15,13 +15,14 @@ function login() {
 
     console.log('Mat: '+matricula, 'Pass: '+senha, 'Mat2: '+mat, 'Pass2: '+pass);
 
-    alert('Entrou');
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/auth/login",
-        data: {
-            matricula: matricula,
-            senha: senha
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({matricula: mat, senha: pass}),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
         },
         success: function (data) {
             console.log('Deu sucesso',data);

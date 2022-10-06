@@ -177,9 +177,15 @@
         var terms = $("#sterms").val();
         
         $.ajax({
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
             type: "POST",
-            url: "php/signupform-process.php",
-            data: "email=" + email + "&name=" + name + "&password=" + password + "&terms=" + terms, 
+            url: "http:localhost:8080/auth/cadastro",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({nome: name}), 
             success: function(text) {
                 if (text == "success") {
                     sformSuccess();
