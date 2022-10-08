@@ -1,9 +1,9 @@
 /* Template: Cadastro de Vagas
-   Author: Inovatik
+   Author: Gilberto
    Created: Sep 2019
    Description: Custom JS file
 */
-
+const url = "http://localhost:8080";
 
 (function($) {
     "use strict"; 
@@ -296,21 +296,25 @@
 
     function nsubmitForm() {
         // initiate variables with form content
+        var email = $("#nemail").val();
+        var subject = "Fique por dentro de todas as nossas novidades!";
+        var text = "Agora você poderá acompanhar todas as nossas vagas pelo seu e-mail. Fique por dentro de tudo!!";
 		var email = $("#nemail").val();
         var terms = $("#nterms").val();
-        $.ajax({
-            type: "POST",
-            url: "php/newsletterform-process.php",
-            data: "email=" + email + "&terms=" + terms, 
-            success: function(text) {
-                if (text == "success") {
-                    nformSuccess();
-                } else {
-                    nformError();
-                    nsubmitMSG(false, text);
-                }
-            }
-        });
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                url: `${url}/email/enviar`,
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                    emailTo: email,
+                    subject: subject,
+                    text: text
+            })
+        })
 	}
 
     function nformSuccess() {
