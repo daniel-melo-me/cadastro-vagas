@@ -313,8 +313,18 @@ const url = "http://localhost:8080";
                     emailTo: email,
                     subject: subject,
                     text: text
-            })
-        })
+            }),
+            beforeSend: function() {
+                $(".spinner-wrapper").show();
+            },
+            complete: function() {
+                $(".spinner-wrapper").hide();
+            }
+        }).done(function(){
+            alert("email enviado com sucesso")
+        }).fail(function (errorThrown) {
+            alert('Falhou' + errorThrown);  
+        });
 	}
 
     function nformSuccess() {
