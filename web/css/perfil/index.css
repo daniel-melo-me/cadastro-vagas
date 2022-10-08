@@ -42,10 +42,16 @@
 .profile-head h6{
     color: #0062cc;
 }
-.profile-edit-btn{
+
+@media(min-width:992px) {
+    .profile-edit-btn {
+        width: 80%; 
+    }
+}
+
+.profile-edit-btn {
     border: none;
     border-radius: 1.5rem;
-    /* width: 70%; */
     padding: .5rem 1rem;
     font-weight: 600;
     color: #fff;
