@@ -175,6 +175,8 @@
 		var name = $("#sname").val();
 		var password = $("#spassword").val();
         var terms = $("#sterms").val();
+        var matricula = $("#smatricula").val();
+        var imagem = $("#formFile").val();
         
         $.ajax({
             headers: {
@@ -185,7 +187,12 @@
             url: "http:localhost:8080/auth/cadastro",
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify({nome: name}), 
+            data: JSON.stringify({
+                    nome: name, 
+                    email: email,
+                    senha: password,
+                    matricula: matricula
+                }), 
             success: function(text) {
                 if (text == "success") {
                     sformSuccess();
