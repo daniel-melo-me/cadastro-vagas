@@ -46,22 +46,18 @@ function cadastrarVaga()
     let token = localStorage.getItem('token');
     let link = 'https://www.turing.com/pt/';
     let tags = '';
+    tags += "[";
 
-    areaAtuacao.forEach(element => {
-        tags += JSON.stringify({id: element});
-    });
+    for(var i = 0; i<areaAtuacao.length; i++) {
+        if(i+1==areaAtuacao.length) {
+            tags += JSON.stringify({id: areaAtuacao[i]});
+            tags += "]";
+        }else {
+            tags += JSON.stringify({id: areaAtuacao[i]}) + ", ";
+        }
+    }
 
-    // Ta retornando {"id":"1"}{"id":"2"}{"id":"3"}{"id":"4"}{"id":"5"}
-    // tem que transformar nisso
-    /* tags:[
-        {"id": "1"},
-        {"id": "2"},
-        {"id": "3"},
-        {"id": "4"},
-        {"id": "5"}
-    ] */
-
-    console.log(tags);
+    let newTags = JSON.parse(tags);
 
     $.ajax({
         type: "POST",
@@ -71,12 +67,9 @@ function cadastrarVaga()
             "titulo": titulo,
             "descricao": descricao,
             "link": link,
-            "tags":[
-                JSON.stringify({id: 1})
-            ],
+            "tags": newTags,
             "expiracao": "11-11-2023 12:53",
-            "areaAtuacao": areaAtuacao, 
-            institucional: institucional
+            "institucional": institucional
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
