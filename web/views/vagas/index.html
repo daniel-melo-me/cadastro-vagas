@@ -111,23 +111,24 @@
                 </div>
                 <!-- Button trigger modal -->
                 <div class="d-flex align-items-center col justify-content-end">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary novaVaga" data-bs-toggle="modal" data-bs-target="#modalCadastroVaga">
                         <em class="fa fa-plus"></em> Nova Vaga
                     </button>
                 </div>
             </div>
+            
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="modalCadastroVaga" tabindex="-1" aria-labelledby="modalCadastroVagaLabel"
+                aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cadastre sua Vaga</h5>
+                            <h5 class="modal-title" id="modalCadastroVagaLabel">Cadastre sua Vaga</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-container">
-                                <form id="signUpForm" data-toggle="validator" data-focus="false">
+                                <form id="formCadastrarVaga" data-toggle="validator" data-focus="false">
                                     <div class="form-group">
                                         <input type="text" class="form-control-input" id="titulo" required>
                                         <label class="label-control" for="titulo">Titulo <small
@@ -143,16 +144,7 @@
                                     <label class="label-select d-block w-100" for="area_atuacao">Áreas de
                                         Interesse</label>
                                     <div class="form-group">
-                                        <select multiple class="form-control areaAtuacao" id="area_atuacao">
-                                            <option value="1">Design</option>
-                                            <option value="2">HTML5</option>
-                                            <option value="3">CSS3</option>
-                                            <option value="4">jQuery</option>
-                                            <option value="5">BS4</option>
-                                            <option value="6">Bootstrap</option>
-                                            <option value="7">WordPress</option>
-                                            <option value="8">FrontEnd</option>
-                                        </select>
+                                        <select multiple class="form-control areaAtuacao" name="tags[]" id="area_atuacao"></select>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="input-group mb-3">
@@ -178,17 +170,13 @@
                                             aria-label="Text input with checkbox" placeholder="link" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control-submit-button">Cadastrar</button>
+                                        <button type="button" id="btnCadastrarVaga" class="form-control-submit-button">Cadastrar</button>
                                     </div>
                                     <div class="form-message">
                                         <div id="smsgSubmit" class="h3 text-center hidden"></div>
                                     </div>
                                 </form>
                             </div> <!-- end of form container -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Salvar</button>
                         </div>
                     </div>
                 </div>

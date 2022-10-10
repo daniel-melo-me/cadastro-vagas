@@ -1,40 +1,42 @@
 jQuery(function () {
-    $("#login").click(function () {
+    $("#login").on('click', function () {
         login();
     });
-    
+
+    $(".form-control-input").on('keyup', function(e) {
+        if (e.keyCode === 13) {
+            login();
+        } 
+    });
 });
 
-
 function login() {
-    let matricula = document.getElementById("lemail").value;
-    let senha = document.getElementById("lpassword").value;
-
-    let mat = $("#lemail").val();
-    let pass = $("#lpassword").val();
-
-    console.log('Mat: '+matricula, 'Pass: '+senha, 'Mat2: '+mat, 'Pass2: '+pass);
+    let matricula = $("#lemail").val();
+    let senha = $("#lpassword").val();
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/auth/login",
+        url: `${url}/auth/login`,
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({matricula: mat, senha: pass}),
+        data: JSON.stringify({matricula: matricula, senha: senha}),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
         success: function (data) {
-            console.log('Deu sucesso',data);
-            if (data.code == 0) {
-                window.location.href = "/index";
-            } else {
-                alert(data.msg);
+            localStorage.setItem('token', data.token);
+
+            if (data.token) {
+                window.location.href = "../vagas/index.html";
             }
+
+            $("#lemail").val('');
+            $("#lpassword").val('');
         },
         error: function (data) {
-            console.log('Deu erro',data);
-            alert(data.msg);
+            alert('Erro: ' + data.responseJSON.erro);
+            $("#lemail").val('');
+            $("#lpassword").val('');
         }
     });
 }

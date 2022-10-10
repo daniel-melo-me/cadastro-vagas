@@ -4,15 +4,16 @@
    Description: Custom JS file
 */
 const url = "http://localhost:8080";
+const token = localStorage.getItem('token');
 
 (function($) {
     "use strict"; 
 	
 	/* Preloader */
 	$(window).on('load', function() {
-		var preloaderFadeOutTime = 500;
+		let preloaderFadeOutTime = 500;
 		function hidePreloader() {
-			var preloader = $('.spinner-wrapper');
+			let preloader = $('.spinner-wrapper');
 			setTimeout(function() {
 				preloader.fadeOut(preloaderFadeOutTime);
 			}, 500);
