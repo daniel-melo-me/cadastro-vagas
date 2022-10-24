@@ -24,29 +24,50 @@ function listar()
 
             if (data.content.length > 0) {
                 data.content.forEach(function (item) {
+
+                if (perfil == 'admin' || perfil == 'professor') {
+                    botoes = `
+                        <a title="Editar">
+                            <button class="btn btn-info" onclick="editar(${item.id})">
+                                <em class="fa fa-edit"></em> 
+                            </button>
+                        </a>
+                    `;
+
+                    botoes += `
+                        <a title="Suspender">
+                            <button class="btn btn-warning" onclick="suspender(${item.id})">
+                                <em class="fa fa-power-off"></em> 
+                            </button>
+                        </a>
+                    `;
+
+                    botoes += `
+                        <a title="Excluir">
+                            <button class="btn btn-danger" onclick="excluir(${item.id})">
+                                <em class="fa fa-trash"></em> 
+                            </button>
+                        </a>
+                    `;
+                } else if(perfil == 'aluno') {
+                    botoes = `
+                        <a title="Candidatar"> 
+                            <button class="btn btn-success" onclick="excluir(${item.id})">
+                                Candidatar-se
+                            </button>
+                        </a>
+                    `;
+                } else {
+                    botoes += '<a class="btn btn-danger">Deu ruim</a>';
+                }
+
                     html += `<tr class="trCss">
                                 <td>${item.titulo}</td>
                                 <td>${item.descricao}</td>
                                 <td>${item.institucional}</td>
                                 <td>${item.dataCriacao}</td>
                                 <td>${item.salario}</td>
-                                <td>
-                                    <a title="Editar">
-                                        <button class="btn btn-info" onclick="editar(${item.id})">
-                                            <em class="fa fa-edit"></em> 
-                                        </button>
-                                    </a>
-                                    <a title="Suspender">
-                                        <button class="btn btn-warning" onclick="suspender(${item.id})">
-                                            <em class="fa fa-power-off"></em> 
-                                        </button>
-                                    </a>
-                                    <a title="Excluir">
-                                        <button class="btn btn-danger" onclick="excluir(${item.id})">
-                                            <em class="fa fa-trash"></em> 
-                                        </button>
-                                    </a>
-                                </td>
+                                <td>${botoes}</td>
                             </tr>`;
                 });
                 $('#tBodyIdVagas').html(html);

@@ -41,10 +41,11 @@ function cadastrarVaga()
 {
     let titulo = $("#titulo").val();
     let descricao = $("#descricao").val();
+    let salario = $("#salario").val();
     let areaAtuacao = $("#area_atuacao").val();
     let institucional = 'INTERNO';
     let token = localStorage.getItem('token');
-    let link = 'https://www.turing.com/pt/';
+    let link = $("#link").val() ?? '';
     let tags = '';
     tags += "[";
 
@@ -66,6 +67,7 @@ function cadastrarVaga()
         data: JSON.stringify({
             "titulo": titulo,
             "descricao": descricao,
+            "salario": salario,
             "link": link,
             "tags": newTags,
             "expiracao": "11-11-2023 12:53",
