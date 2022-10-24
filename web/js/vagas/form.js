@@ -77,7 +77,6 @@ function cadastrarVaga()
             'Authorization': 'Bearer ' + token
         },
         success: function (data) {
-            alert('Vaga cadastrada com sucesso!');
             window.location.href = "../vagas/index.html";
         },
         error: function (data) {
