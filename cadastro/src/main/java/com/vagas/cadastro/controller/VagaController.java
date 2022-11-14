@@ -51,7 +51,7 @@ public class VagaController {
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         retorno.put("response", "Vaga deletada com sucesso!");
         try {
-            if (verificacaoDePermissaoPeloId(id)) {
+            if (!verificacaoDePermissaoPeloId(id)) {
                 return ResponseEntity.status(401).build();
             }
             service.deletar(id);
