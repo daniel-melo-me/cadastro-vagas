@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="../../css/vagas/index.css">
     <link rel="stylesheet" href="../../css/plugins/chosen/style.css">
     <link rel="stylesheet" href="../../css/plugins/chosen/chosen.css">
+    <link rel="stylesheet" href="../../css/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="../../css/vagas/form.css">
 
     <!-- Favicon  -->
@@ -106,17 +107,19 @@
     <div class="ex-basic-2">
         <div class="container">
             <div class="row">
+                <div id="flashMensager"></div>
                 <div class="col">
                     <h3>Nossas Vagas</h3>
                 </div>
                 <!-- Button trigger modal -->
                 <div class="d-flex align-items-center col justify-content-end">
-                    <button type="button" class="btn btn-primary novaVaga" data-bs-toggle="modal" data-bs-target="#modalCadastroVaga">
+                    <button type="button" class="btn btn-primary novaVaga" data-bs-toggle="modal"
+                        data-bs-target="#modalCadastroVaga">
                         <em class="fa fa-plus"></em> Nova Vaga
                     </button>
                 </div>
             </div>
-            
+
             <!-- Modal -->
             <div class="modal fade" id="modalCadastroVaga" tabindex="-1" aria-labelledby="modalCadastroVagaLabel"
                 aria-hidden="true" data-backdrop="static">
@@ -131,7 +134,7 @@
                                 <form id="formCadastrarVaga" data-toggle="validator" data-focus="false">
                                     <div class="form-group">
                                         <input type="text" class="form-control-input" id="titulo" required>
-                                        <label class="label-control" for="titulo">Titulo 
+                                        <label class="label-control" for="titulo">Titulo
                                             <small class="text-danger">*</small></label>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -141,15 +144,21 @@
                                                 class="text-danger">*</small></label>
                                         <div class="help-block with-errors"></div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <input type="text" class="form-control-input" id="salario" required>
+                                        <label class="label-control" for="salario">Salário</label>
+                                        <div class="help-block with-errors"></div>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <input type="number" class="form-control-input" id="salario" required>
                                         <label class="label-control" for="salario">Salário</label>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <label class="label-select d-block w-100" for="area_atuacao">Áreas de
                                         Interesse</label>
                                     <div class="form-group">
-                                        <select multiple class="form-control areaAtuacao" name="tags[]" id="area_atuacao"></select>
+                                        <select multiple class="form-control areaAtuacao" name="tags[]"
+                                            id="area_atuacao"></select>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="input-group mb-3">
@@ -175,7 +184,8 @@
                                             aria-label="Text input with checkbox" placeholder="link" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <button type="button" id="btnCadastrarVaga" class="form-control-submit-button">Cadastrar</button>
+                                        <button type="button" id="btnCadastrarVaga"
+                                            class="form-control-submit-button">Cadastrar</button>
                                     </div>
                                     <div class="form-message">
                                         <div id="smsgSubmit" class="h3 text-center hidden"></div>
@@ -195,14 +205,249 @@
                                 <th scope="col">Descrição</th>
                                 <th scope="col">Institucional</th>
                                 <th scope="col">Publicada</th>
-                                <th scope="col">Salário</th>
+                                <th scope="col">Salário (R$)</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
 
-                        <tbody id="tBodyIdVagas"> 
-                            
-                        </tbody>
+                        <tbody></tbody>
+                        <!-- <tbody>
+                            <tr class="trCss">
+                                <td>Estágio Redes</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>Infra IFRS</td>
+                                <td>03/09/2022</td>
+                                <td>R$1200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Full Stack Python Developer</td>
+                                <td>Are you a Mid-Weight Full Stack Python Developer that wants to develop and implement
+                                    your
+                                    own concepts and strategies?.</td>
+                                <td>Sparro AU</td>
+                                <td>03/05/2021</td>
+                                <td>AU$8200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>PhP Developer</td>
+                                <td>Our client is a Sydney-based Fin-tech company that focuses on innovation,
+                                    engineering and
+                                    product development for their key clients.</td>
+                                <td>Hays Sydney</td>
+                                <td>01/09/2022</td>
+                                <td>R$1200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Technical Lead</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>Growth Faculty</td>
+                                <td>25/04/2022</td>
+                                <td>AU$10.200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Senior Front-end Developer</td>
+                                <td>Vero is a multi-channel messaging platform built for the modern data stack. Modern
+                                    marketing
+                                    and product teams all over the world use Vero to automate communications with over
+                                    750
+                                    million end-users.</td>
+                                <td>Vero Sydney</td>
+                                <td>03/09/2022</td>
+                                <td>AU$4800,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Desenvolvedor(a) Back-end Node.js Júnior a Pleno (Remoto)</td>
+                                <td>Criação e manutenção em componentes front-end, visando qualidade e performance para
+                                    o
+                                    usuário final.</td>
+                                <td>GeekHunter</td>
+                                <td>03/09/2022</td>
+                                <td>A combinar</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Desenvolvedor de back end</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>O2OBOTS Florianópolis</td>
+                                <td>02/03/2022</td>
+                                <td>R$5800,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Desenvolvedor Fullstack</td>
+                                <td>A Recreativa é a primeira empresa de palavras cruzadas do Brazil e é a companheira
+                                    assídua
+                                    de muitas pessoas que procuram preencher suas horas vagas exercitando o cérebro,
+                                    esquecendo
+                                    seus problemas cotidianos e entrando num mundo especial que só as palavras cruzadas
+                                    podem
+                                    proporcionar.</td>
+                                <td>A Recreativa</td>
+                                <td>25/02/2022</td>
+                                <td>A Combinar</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Desenvolvedor backend - Júnior</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>SmartEnvios Ribeirão Preto,</td>
+                                <td>12/02/2022</td>
+                                <td>R$3500,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Candidatar-se"><button
+                                            class="btn btn-success">Candidatar-se</button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Estágiário(a) de Serviços</td>
+                                <td>Como estagiário você vai conhecer na prática o atendimento ao cliente, e por meio
+                                    dele
+                                    ajudá-lo a resolver seus problemas técnicos ou ajudá-lo com duvidas.</td>
+                                <td>Teknisa Belo Horizonte</td>
+                                <td>31/08/2022</td>
+                                <td>R$1200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>System Architect</td>
+                                <td>As a System Architect, you will be able to adopt the best development practices in
+                                    PHP
+                                    Laravel, Angular and Ionic technologies, driving and providing best approaches for a
+                                    US
+                                    Company product, using MVC architecture and exposing REST API as Backend. You will
+                                    lead a
+                                    12+ developers and analysts to deliver a high quality product.</td>
+                                <td>Brilliant Machine Rio de Janeiro</td>
+                                <td>25/08/2022</td>
+                                <td>A combinar</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Desenvolvedor(a) React</td>
+                                <td>Nivel de atuacao: Especialistas | Area de atuacao: Tecnologia, Informatica e
+                                    Internet |
+                                    Escolaridade minima: Superior Completo | Principais atividades: Estamos contratando
+                                    Desenvolvedor PHP/React para projetos de transformacao digital, desenvolvendo
+                                    ferramentas
+                                    inovadoras para entregar a melhor experiencia para os usuarios da plataforma de uma
+                                    grande
+                                    empresa..</td>
+                                <td>innolevels Rio de Janeiro</td>
+                                <td>03/11/2022</td>
+                                <td>R$9200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Frontend Developer</td>
+                                <td>Analisar, planejar e desenvolver aplicações com Ionic e Angular que além de atender
+                                    os
+                                    requisitos funcionais, ofereça performance e usabilidade adequada.</td>
+                                <td>Ambra Gaming Brasil Remoto</td>
+                                <td>03/05/2022</td>
+                                <td>R$4200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>DevOps</td>
+                                <td>Pioneira no Brasil com mais de uma década de expertise em marketing de afiliação, a
+                                    Afilio é
+                                    uma experiente plataforma de negócios que conecta grandes anunciantes a uma rede de
+                                    afiliados que promovem vendas online em seus canais.</td>
+                                <td>Afilio Rio de Janeiro</td>
+                                <td>01/05/2022</td>
+                                <td>R$7400,13</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                            <tr class="trCss">
+                                <td>Analista</td>
+                                <td>Dar manutenção aos servidores de redes que estão zoados ou com problemas e formatar
+                                    os pcs
+                                    de geral quando pedirem.</td>
+                                <td>Thymus São Paulo</td>
+                                <td>25/10/2022</td>
+                                <td>R$4200,00</td>
+                                <td class="acoes">
+                                    <a href="vaga/form/1" title="Editar"><button class="btn btn-info"><em
+                                                class="fa fa-edit"></em> </button></a>
+                                    <a href="vaga/form/1" title="Suspender"><button class="btn btn-warning"><em
+                                                class="fa fa-power-off"></em></button></a>
+                                    <a href="vaga/form/1" title="Excluir"><button class="btn btn-danger"><em
+                                                class="fa fa-trash"></em> </button></a>
+                                </td>
+                            </tr>
+                        </tbody> -->
 
                         <tfoot>
                             <tr>
@@ -224,59 +469,79 @@
     <!-- Footer -->
 
     <!-- Footer -->
-<svg class="footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:#5f4def;}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg>
-<div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="footer-col first">
-                    <h4>Sobre Vagas IFRS</h4>
-                    <p class="p-small">Sistema que propõe que os professores coloquem as vagas dentro de um ambiente para que os alunos possam ver de acordo com sua área de preferência.</p>
-                </div>
-            </div> <!-- end of col -->
-            <div class="col-md-4">
-                <div class="footer-col middle">
-                    <h4>Links Importantes</h4>
-                    <ul class="list-unstyled li-space-lg p-small">
-                        <li class="media">
-                            <i class="fas fa-square"></i>
-                            <div class="media-body">Leia nossa <a class="white" href="https://ifrs.edu.br/lgpd/" target="_blank">Política de Privacidade</a></div>
-                        </li>
-                    </ul>
-                </div>
-            </div> <!-- end of col -->
-            <div class="col-md-4">
-                <div class="footer-col last">
-                    <h4>Contato</h4>
-                    <ul class="list-unstyled li-space-lg p-small">
-                        <li class="media">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="media-body">Reitoria; Bento Gonçalves, Rio Grande do Sul, Brasil</div>
-                        </li>
-                        <li class="media">
-                            <i class="fas fa-envelope"></i>
-                            <div class="media-body"><a class="white" href="mailto:vagasifrs@gmail.com">vagasifrs@gmail.com</a> </div>
-                        </li>
-                    </ul>
-                </div> 
-            </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of footer -->  
-<!-- end of footer -->
+    <svg class="footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+        viewBox="0 0 1920 79">
+        <defs>
+            <style>
+                .cls-2 {
+                    fill: #5f4def;
+                }
+            </style>
+        </defs>
+        <title>footer-frame</title>
+        <path class="cls-2"
+            d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z"
+            transform="translate(0 -0.188)" />
+    </svg>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-col first">
+                        <h4>Sobre Vagas IFRS</h4>
+                        <p class="p-small">Sistema que propõe que os professores coloquem as vagas dentro de um ambiente
+                            para que os alunos possam ver de acordo com sua área de preferência.</p>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-md-4">
+                    <div class="footer-col middle">
+                        <h4>Links Importantes</h4>
+                        <ul class="list-unstyled li-space-lg p-small">
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Leia nossa <a class="white" href="https://ifrs.edu.br/lgpd/"
+                                        target="_blank">Política de Privacidade</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-md-4">
+                    <div class="footer-col last">
+                        <h4>Contato</h4>
+                        <ul class="list-unstyled li-space-lg p-small">
+                            <li class="media">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="media-body">Reitoria; Bento Gonçalves, Rio Grande do Sul, Brasil</div>
+                            </li>
+                            <li class="media">
+                                <i class="fas fa-envelope"></i>
+                                <div class="media-body"><a class="white"
+                                        href="mailto:vagasifrs@gmail.com">vagasifrs@gmail.com</a> </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of footer -->
+    <!-- end of footer -->
 
 
-<!-- Copyright -->
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <p class="p-small">Copyright © 2022 Desenvolvido por <a target="_blank" href="https://www.linkedin.com/in/gilbertofredes/"><u>Gilberto Fredes</u>, </a><a target="_blank" href="https://www.linkedin.com/in/daniel--melo/"><u>Daniel Melo</u> e </a><a target="_blank" href="https://www.linkedin.com/in/rodrigo-leite-de-oliveira/"><u>Rodrigo Oliveira</u>.</a></p>
-            </div> <!-- end of col -->
-        </div> <!-- enf of row -->
-    </div> <!-- end of container -->
-</div> <!-- end of copyright --> 
-<!-- end of copyright -->
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2022 Desenvolvido por <a target="_blank"
+                            href="https://www.linkedin.com/in/gilbertofredes/"><u>Gilberto Fredes</u>, </a><a
+                            target="_blank" href="https://www.linkedin.com/in/daniel--melo/"><u>Daniel Melo</u> e </a><a
+                            target="_blank" href="https://www.linkedin.com/in/rodrigo-leite-de-oliveira/"><u>Rodrigo
+                                Oliveira</u>.</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright -->
+    <!-- end of copyright -->
 
     <!-- end of footer -->
 
@@ -295,7 +560,10 @@
     <script src="../../js/vagas/index.js"></script> <!-- Custom scripts -->
     <script src="../../js/vagas/form.js"></script>
     <script src="../../js/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="../../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../../js/plugins/bootbox/bootbox.min.js"></script>
     <script src="../../js/cadastro/index.js"></script>
+    <script src="../../js/utils/helpers.js"></script>
 </body>
 
 </html>

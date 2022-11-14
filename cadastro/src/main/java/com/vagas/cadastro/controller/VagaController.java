@@ -118,8 +118,7 @@ public class VagaController {
 
     private boolean verificacaoDePermissaoPeloId(Long id) {
         Usuario usuario = repository.findById(tokenService.returnId()).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado")
-        );
+                () -> new RuntimeException("Usuário não encontrado"));
         List<Vaga> vagas = vagaRepository.findAll();
         if (!usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
             for (Vaga vaga : vagas) {
@@ -128,6 +127,11 @@ public class VagaController {
                 }
             }
         }
+
+        if (usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
+            return true;
+        }
+
         return false;
     }
 }
