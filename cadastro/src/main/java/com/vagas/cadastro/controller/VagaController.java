@@ -51,7 +51,7 @@ public class VagaController {
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         retorno.put("response", "Vaga deletada com sucesso!");
         try {
-            if (!verificacaoDePermissaoPeloId(id)) {
+            if (verificacaoDePermissaoPeloId(id)) {
                 return ResponseEntity.status(401).build();
             }
             service.deletar(id);
@@ -118,20 +118,17 @@ public class VagaController {
 
     private boolean verificacaoDePermissaoPeloId(Long id) {
         Usuario usuario = repository.findById(tokenService.returnId()).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado"));
+                () -> new RuntimeException("Usuário não encontrado")
+        );
         List<Vaga> vagas = vagaRepository.findAll();
-        if (!usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
-            for (Vaga vaga : vagas) {
-                if (vaga.getUsuario().getId().equals(usuario.getId()) && vaga.getId().equals(id)) {
-                    return true;
-                }
-            }
-        }
-
         if (usuario.getPerfis().getNome().equals(PerfilEnum.ROLE_ADMIN)) {
             return true;
         }
-
+        for (Vaga vaga : vagas) {
+            if (vaga.getUsuario().getId().equals(usuario.getId()) && vaga.getId().equals(id)) {
+                return true;
+            }
+        }
         return false;
     }
 }
