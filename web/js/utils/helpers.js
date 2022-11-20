@@ -10,7 +10,7 @@ var appUtil = {
      * @param {string} tipo
      * @returns {undefined}
      */
-    createFlashMesseger: function (message, tipo, target) {
+    createFlashMessager: function (message, tipo, target) {
         var css = "";
         var icon = "";
         if (tipo == "success" || tipo === true || tipo == "true") {
@@ -29,7 +29,7 @@ var appUtil = {
         }
 
         if (appValidation.isUndefined(target)) {
-            target = "#flashMensager";
+            target = "#flashMessager";
         }
 
         var container = $(target);
@@ -63,17 +63,19 @@ var appUtil = {
     confirmBox: function (message, callBackFunction) {
         bootbox.confirm({
             message: message,
+            closeButton: false,
+            size: 'large',
             buttons: {
                 confirm: {
-                    label: "Sim",
-                    className: "btn-success",
+                    label: 'Sim',
+                    className: 'btn-success'
                 },
                 cancel: {
-                    label: "Não",
-                    className: "btn-danger",
-                },
+                    label: 'Não',
+                    className: 'btn-danger'
+                }
             },
-            callback: callBackFunction,
+            callback: callBackFunction
         });
     },
 

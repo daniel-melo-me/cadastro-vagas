@@ -20,14 +20,14 @@ function listar() {
             let botoes = '';
             let perfil = localStorage.getItem('perfil') ?? 'admin';
 
-            if (data.content.length > 0) {
+            if (data.content.length) {
                 data.content.forEach(function (item) {
 
                     if (perfil == 'admin' || perfil == 'professor') {
 
                         botoes = `
                             <a title="Editar">
-                                <button class="btn btn-info" onclick="editar(${item.id, item.titulo, item.descricao, item.institucional, item.dataCriacao, item.salario})">
+                                <button class="btn btn-info" onclick="editar(${item.id})">
                                     <em class="fa fa-edit"></em> 
                                 </button>
                             </a>
