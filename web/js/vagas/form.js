@@ -7,8 +7,19 @@ jQuery(function () {
     });
 
     $(".novaVaga").on('click', function () {
+        $(".salario").show();
         limparCampos();
         carregarTags();
+    });
+
+    $("#valorCombinar").on('change', function () {
+        if ($(this).is(':checked')) {
+            $("#salario").val('');
+            $(".salario").hide();
+            return;
+        }
+
+        $(".salario").show();
     });
 });
 
@@ -39,7 +50,7 @@ function carregarTags() {
 function cadastrarVaga() {
     let titulo = $("#titulo").val();
     let descricao = $("#descricao").val();
-    let salario = $("#salario").val();
+    let salario = $(this).is(':checked') ? 'A Combinar' : $("#salario").val();
     let areaAtuacao = $("#area_atuacao").val();
     let institucional = 'INTERNO';
     let token = localStorage.getItem('token');
@@ -47,7 +58,7 @@ function cadastrarVaga() {
     let tags = '';
     tags += "[";
 
-    //$(".spinner-wrapper").show();
+    appUtil.showLoader('Cadastrando...');
 
     for (let i = 0; i < areaAtuacao.length; i++) {
         if (i + 1 == areaAtuacao.length) {
@@ -82,13 +93,21 @@ function cadastrarVaga() {
             $('#modalCadastroVaga').modal('hide');
             $('#data_table_vagas').DataTable();
             listar();
+            toastr.options.closeButton = true;
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.preventDuplicates = true;
+            toastr.options.progressBar = true;
+            toastr.success("Vaga cadastrada com sucesso!", 'Sucesso', { timeOut: 5000 });
         },
         error: function (data) {
-            alert('Error: ' + data.responseJSON.erro);
+            toastr.options.closeButton = true;
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.preventDuplicates = true;
+            toastr.options.progressBar = true;
+            toastr.error(data.responseJSON.erro, 'Error', { timeOut: 5000 });
         },
         always: function () {
-            // alert('Fucnioou');
-            // $(".spinner-wrapper").hide();
+            appUtil.hideLoader();
         }
     });
 }
@@ -98,7 +117,7 @@ function excluir(id) {
 
     // Falta verificar o motivo de n poder excluir
     // tb o X do modal confirm estar alinhado a esquerda
-    appUtil.confirmBox('Deseja realmente excluir essa vaga???', function (retorno) {
+    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente excluir essa vaga???</h4>', function (retorno) {
         if (retorno) {
             appUtil.showLoader();
             $.ajax({
@@ -113,7 +132,7 @@ function excluir(id) {
                     listar();
                 },
                 error: function (data) {
-                    // appUtil.createFlashMesseger('Deu ruim', 401, '#flashMensager');
+                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
                     console.log(data);
                     toastr.options.closeButton = true;
                     toastr.options.closeMethod = 'fadeOut';
@@ -131,24 +150,135 @@ function excluir(id) {
     });
 }
 
-function editar(id, titulo, descricao, institucional, dataCriacao, salario, link, tags) {
-    console.log('id ' + id, 'titulo ' + titulo, 'descricao ' + descricao, 'institucional ' + institucional, 'dataCriacao ' + dataCriacao, 'salario ' + salario, 'link ' + link, 'tags ' + tags);
+function suspender(id) {
+    let token = localStorage.getItem('token');
 
-    return false;
+    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente suspender essa vaga?</h4>', function (retorno) {
+        if (retorno) {
+            appUtil.showLoader('Inativando...');
+            $.ajax({
+                type: "PUT",
+                url: `${url}/vaga/editar/${id}`,
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                    "status": "FINALIZADO",
+                }),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function (data) {
+                    console.log(data);
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.preventDuplicates = true;
+                    toastr.options.progressBar = true;
+                    toastr.success("Registro inativado com sucesso!");
+                    listar();
+                },
+                error: function (data) {
+                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
+                    console.log(data);
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.preventDuplicates = true;
+                    toastr.options.progressBar = true;
+                    toastr.error("Erro ao tentar inativar o registro.", 'Error', { timeOut: 5000 });
+                    //alert('Error: ' + data.responseJSON.erro);
+                },
+                always: function () {
+                    appUtil.hideLoader();
+                }
+            });
 
+        }
+    });
+}
+
+function ativar(id) {
+    let token = localStorage.getItem('token');
+
+    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente ativar essa vaga???</h4>', function (retorno) {
+        if (retorno) {
+            appUtil.showLoader();
+            $.ajax({
+                type: "PUT",
+                url: `${url}/vaga/ativar/${id}`,
+                headers: {
+                },
+                success: function (data) {
+                    console.log(data);
+                    toastr.success("Registro ativado com sucesso!");
+                    listar();
+                },
+                error: function (data) {
+                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
+                    console.log(data);
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.preventDuplicates = true;
+                    toastr.options.progressBar = true;
+                    toastr.error("Erro ao tentar ativar o registro.", 'Error', { timeOut: 5000 });
+                    //alert('Error: ' + data.responseJSON.erro);
+                },
+                always: function () {
+                    appUtil.hideLoader();
+                }
+            });
+
+        }
+    });
+}
+
+function editar(id) {
+    let token = localStorage.getItem('token');
+
+    appUtil.showLoader('Aguarde...');
+    $.ajax({
+        type: "GET",
+        url: `${url}/vaga/pesquisar/${id}`,
+        contentType: "application/json;charset=UTF-8",
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (data) {
+            carregarDadosModal(data);
+        },
+        error: function (data) {
+            toastr.error('Erro: ' + data.responseJSON.erro);
+            console.log(data);
+        },
+        always: function () {
+            appUtil.hideLoader();
+        }
+    });
+}
+
+function carregarDadosModal(data) {
     limparCampos();
-    $("#titulo").val(titulo);
-    $("#descricao").val(descricao);
-    $("#salario").val(salario);
-    $("#link").val(link);
-    $("#id").val(id);
-    $("#institucional").val(institucional);
-    $("#dataCriacao").val(dataCriacao);
+    $("#titulo").val(data.titulo);
+    $("#descricao").val(data.descricao);
+    $("#link").val(data.link);
+    $("#id").val(data.id);
+    $("#institucional").val(data.institucional);
+    $("#dataCriacao").val(data.dataCriacao);
+
+    if (data.salario) {
+        $("#salario").val(data.salario);
+        $(".salario").show();
+    } else {
+        $('#valorCombinar').prop('checked', true);
+        $(".salario").hide();
+    }
+
 
     carregarTags();
 
-    for (let i = 0; i < tags.length; i++) {
-        $("#area_atuacao").val(tags[i].id);
+    for (const element of data.tags) {
+        $("#area_atuacao").val(element.id);
         $("#area_atuacao").trigger("chosen:updated");
     }
 
@@ -157,14 +287,14 @@ function editar(id, titulo, descricao, institucional, dataCriacao, salario, link
     $("#btnCadastrarVaga").on('click', function () {
         atualizarVaga();
     });
-
-
-
 }
 
 function atualizarVaga(data) {
     let token = localStorage.getItem('token');
 
+    toastr.warning('Atualizando vaga...');
+
+    return;
     $.ajax({
         type: "GET",
         url: `${url}/vaga/editar/${id}`,
