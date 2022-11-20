@@ -2148,10 +2148,6 @@ a:hover.back-to-top {
 		margin-left: auto;
 	}
 
-	.ex-basic-2 .form-container {
-		margin-left: 1.75rem;
-	}
-
 	.ex-basic-2 .image-container-small {
 		margin-left: 1.75rem;
 	}
@@ -2170,4 +2166,12 @@ a:hover.back-to-top {
 	.ifFooter {
 		height: 570px !important;
 	}
+}
+
+.modal-header {
+	padding: 1rem 3rem;
+}
+
+.modal-body {
+	padding: 2.25rem 3rem 1rem;
 }
