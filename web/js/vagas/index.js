@@ -65,28 +65,15 @@ function listar() {
                     html += `     <td>${item.descricao}</td>`;
                     html += `     <td>${item.institucional}</td>`;
                     html += `     <td>${item.dataCriacao}</td>`;
+                    html += `     <td>${item.status}</td>`;
                     html += `     <td>${item.salario ? 'R$' + item.salario : 'A combinar'}</td>`;
                     html += `     <td class="acoes"> ${botoes} </td>`;
                     html += ` </tr>`;
-
-                    /* html += `<tr class="trCss">
-                                <td>${item.titulo}</td>
-                                <td>${item.descricao}</td>
-                                <td>${item.institucional}</td>
-                                <td>${item.dataCriacao}</td>
-                                <td>${item.salario ? 'R$' + item.salario : 'A combinar'}</td>
-                                <td>${botoes}</td>
-                            </tr>`; */
                 });
 
                 $('#data_table_vagas').DataTable().destroy();
                 $('#data_table_vagas tbody').html(html);
                 $('#data_table_vagas').DataTable();
-
-
-                //$('#tBodyIdVagas').html(html);
-                //
-                //$('#data_table_vagas').DataTable();
             }
 
         },
