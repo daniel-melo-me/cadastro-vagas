@@ -78,7 +78,34 @@ var appUtil = {
             callback: callBackFunction
         });
     },
+    /**
+     * Padroniza os alerts
+     * @param {string} type
+     * @param {string} msg
+     * @returns {string} title
+     */
+    toastr: function (type, msg, title) {
+        toastr.options.closeButton = true;
+        toastr.options.closeMethod = 'fadeOut';
+        toastr.options.preventDuplicates = true;
+        toastr.options.progressBar = true;
 
+        if (type == "success") {
+            toastr.success(msg, title, { timeOut: 5000 });
+        }
+
+        if (type == "error") {
+            toastr.error(msg, title, { timeOut: 5000 });
+        }
+
+        if (type == "info") {
+            toastr.info(msg, title, { timeOut: 5000 });
+        }
+
+        if (type == "warning") {
+            toastr.warning(msg, title, { timeOut: 5000 });
+        }
+    },
     /**
      * Limpa o cookie por nome
      * @param {string} name

@@ -2,11 +2,22 @@ jQuery(function () {
     $(".areaAtuacao").chosen();
     $('#modalCadastroVaga').modal({ backdrop: 'static', keyboard: false });
 
-    $("#btnCadastrarVaga").on('click', function () {
-        cadastrarVaga();
+    $("#btnSalvar").on('click', function () {
+        if ($("#formCadastrarVaga").valid()) {
+            if ($("#btnSalvar").val() == "Cadastrar") {
+                cadastrarVaga();
+            }
+
+            if ($("#btnSalvar").val() == "Editar") {
+                atualizarVaga();
+            }
+        }
     });
 
     $(".novaVaga").on('click', function () {
+        $("#btnSalvar").html("Cadastrar");
+        $("#btnSalvar").val("Cadastrar");
+
         $(".salario").show();
         limparCampos();
         carregarTags();
@@ -127,19 +138,12 @@ function excluir(id) {
                     'Authorization': 'Bearer ' + token
                 },
                 success: function (data) {
-                    console.log(data);
-                    toastr.success("Registro excluído com sucesso!");
+                    appUtil.toastr("success", "Registro excluído com sucesso!", "Sucesso");
                     listar();
                 },
                 error: function (data) {
-                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
                     console.log(data);
-                    toastr.options.closeButton = true;
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.options.preventDuplicates = true;
-                    toastr.options.progressBar = true;
-                    toastr.error("Erro ao tentar excluir o registro.", 'Error', { timeOut: 5000 });
-                    //alert('Error: ' + data.responseJSON.erro);
+                    appUtil.toastr("error", "Erro ao tentar excluir o registro.", "Error");
                 },
                 always: function () {
                     appUtil.hideLoader();
@@ -155,13 +159,13 @@ function suspender(id) {
 
     appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente suspender essa vaga?</h4>', function (retorno) {
         if (retorno) {
-            appUtil.showLoader('Inativando...');
+            appUtil.showLoader('Suspendendo...');
             $.ajax({
                 type: "PUT",
-                url: `${url}/vaga/editar/${id}`,
+                url: `${url}/vaga/status/${id}`,
                 contentType: "application/json;charset=UTF-8",
                 data: JSON.stringify({
-                    "status": "FINALIZADO",
+                    "status": "SUSPENSA",
                 }),
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -169,23 +173,12 @@ function suspender(id) {
                     'Authorization': 'Bearer ' + token
                 },
                 success: function (data) {
-                    console.log(data);
-                    toastr.options.closeButton = true;
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.options.preventDuplicates = true;
-                    toastr.options.progressBar = true;
-                    toastr.success("Registro inativado com sucesso!");
+                    appUtil.toastr("success", "Registro suspenso com sucesso!", "Sucesso");
                     listar();
                 },
                 error: function (data) {
-                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
                     console.log(data);
-                    toastr.options.closeButton = true;
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.options.preventDuplicates = true;
-                    toastr.options.progressBar = true;
-                    toastr.error("Erro ao tentar inativar o registro.", 'Error', { timeOut: 5000 });
-                    //alert('Error: ' + data.responseJSON.erro);
+                    appUtil.toastr("error", "Erro ao tentar inativar o registro.", "Erro");
                 },
                 always: function () {
                     appUtil.hideLoader();
@@ -199,28 +192,28 @@ function suspender(id) {
 function ativar(id) {
     let token = localStorage.getItem('token');
 
-    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente ativar essa vaga???</h4>', function (retorno) {
+    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja realmente ativar essa vaga?</h4>', function (retorno) {
         if (retorno) {
             appUtil.showLoader();
             $.ajax({
                 type: "PUT",
-                url: `${url}/vaga/ativar/${id}`,
+                url: `${url}/vaga/status/${id}`,
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                    "status": "ABERTA",
+                }),
                 headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
                 },
                 success: function (data) {
-                    console.log(data);
-                    toastr.success("Registro ativado com sucesso!");
+                    appUtil.toastr("success", "Registro ativado com sucesso!", "Sucesso");
                     listar();
                 },
                 error: function (data) {
-                    // appUtil.createFlashMessager('Deu ruim', 401, '#flashMessager');
                     console.log(data);
-                    toastr.options.closeButton = true;
-                    toastr.options.closeMethod = 'fadeOut';
-                    toastr.options.preventDuplicates = true;
-                    toastr.options.progressBar = true;
-                    toastr.error("Erro ao tentar ativar o registro.", 'Error', { timeOut: 5000 });
-                    //alert('Error: ' + data.responseJSON.erro);
+                    appUtil.toastr("error", "Erro ao tentar ativar o registro.", "Erro");
                 },
                 always: function () {
                     appUtil.hideLoader();
@@ -259,6 +252,11 @@ function editar(id) {
 
 function carregarDadosModal(data) {
     limparCampos();
+
+    $("#btnSalvar").html("Editar");
+    $("#btnSalvar").val("Editar");
+
+
     $("#titulo").val(data.titulo);
     $("#descricao").val(data.descricao);
     $("#link").val(data.link);
@@ -284,17 +282,16 @@ function carregarDadosModal(data) {
 
     $('#modalCadastroVaga').modal('show');
 
-    $("#btnCadastrarVaga").on('click', function () {
+    $("#btnSalvar").on('click', function () {
         atualizarVaga();
     });
 }
 
+
+//Continuar aqui
 function atualizarVaga(data) {
     let token = localStorage.getItem('token');
 
-    toastr.warning('Atualizando vaga...');
-
-    return;
     $.ajax({
         type: "GET",
         url: `${url}/vaga/editar/${id}`,
@@ -304,12 +301,12 @@ function atualizarVaga(data) {
             'Authorization': 'Bearer ' + token
         },
         success: function (data) {
-            console.log(data);
-            toastr.success("Registro atualizado com sucesso!");
+            appUtil.toastr("success", "Registro atualizado com sucesso!", "Sucesso");
             listar();
         },
         error: function (data) {
-            toastr.error('Erro: ' + data.responseJSON.erro);
+            console.log(data);
+            appUtil.toastr("error", data.responseJSON.erro, "Erro");
         }
     });
 }
