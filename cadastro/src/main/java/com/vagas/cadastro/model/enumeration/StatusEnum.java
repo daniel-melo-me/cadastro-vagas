@@ -1,8 +1,9 @@
 package com.vagas.cadastro.model.enumeration;
 
 public enum StatusEnum {
-    FINALIZADO("Finalizado"),
-    ABERTO("Aberto");
+    FINALIZADA("Finalizada"),
+    SUSPENSA("Suspensa"),
+    ABERTA("Aberta");
 
     private final String descricao;
 

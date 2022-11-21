@@ -37,7 +37,7 @@ public class CandidaturasServiceImpl implements CandidaturasService {
         Vaga vaga = vagaRepository.findById(dto.getVaga().getId()).orElseThrow(
                 () -> new RuntimeException("Vaga não encontrada")
         );
-        if (vaga.getStatus().equals(StatusEnum.FINALIZADO)) {
+        if (vaga.getStatus().equals(StatusEnum.FINALIZADA)) {
             throw new RuntimeException("Não é possivel se candidatar em uma vaga finalizada");
         }
         Curriculo curriculo = curriculoRepository.findById(dto.getCurriculo().getId()).orElseThrow();

@@ -1,5 +1,6 @@
 package com.vagas.cadastro.service.impl;
 
+import com.vagas.cadastro.dto.request.StatusRequestDTO;
 import com.vagas.cadastro.dto.request.VagaRequestDTO;
 import com.vagas.cadastro.model.Tags;
 import com.vagas.cadastro.model.Usuario;
@@ -43,7 +44,7 @@ public class VagaServiceImpl implements VagaService {
         validarData(dto.getExpiracao());
         Vaga vaga = dto.convert();
         validarTag(vaga);
-        vaga.setStatus(StatusEnum.ABERTO);
+        vaga.setStatus(StatusEnum.ABERTA);
         Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(
                 () -> new RuntimeException("Usuário não encontrado")
         );
@@ -80,9 +81,15 @@ public class VagaServiceImpl implements VagaService {
     @Override
     public Vaga editar(Long id, VagaRequestDTO dto, Long idUser) {
         verificarId(id);
-        if (repository.existsByTitulo(dto.getTitulo())) {
+        Vaga vagaTituloIgual = repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Vaga não encontrada")
+        );
+
+        if (repository.existsByTitulo(dto.getTitulo())  &&
+                !(dto.getTitulo().equalsIgnoreCase(vagaTituloIgual.getTitulo()))) {
             throw new RuntimeException("Título já existente");
         }
+
         validarData(dto.getExpiracao());
         Vaga vaga = dto.convert();
         Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(
@@ -92,6 +99,15 @@ public class VagaServiceImpl implements VagaService {
         vaga.setId(id);
         vaga.setUsuario(usuario);
         return repository.save(vaga);
+    }
+
+    @Override
+    public Vaga status(Long id, StatusRequestDTO dto) {
+        Vaga vaga = repository.findById(id).orElseThrow(
+                () -> new RuntimeException("vaga não encontrada")
+        );
+        vaga.setStatus(dto.getStatus());
+        return vaga;
     }
 
     public void validar(VagaRequestDTO dto) {
