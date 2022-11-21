@@ -1,5 +1,6 @@
 package com.vagas.cadastro.controller;
 
+import com.vagas.cadastro.dto.request.StatusRequestDTO;
 import com.vagas.cadastro.dto.request.VagaRequestDTO;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.Vaga;
@@ -105,6 +106,19 @@ public class VagaController {
                 return ResponseEntity.status(401).build();
             }
             return ResponseEntity.ok().body(service.editar(id, dto, tokenService.returnId()));
+        } catch (Exception e) {
+            return retornoErro(e.getMessage());
+        }
+    }
+
+    @PutMapping("/status/{id}")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
+    @Transactional
+    public ResponseEntity<?> status(
+            @PathVariable(value = "id") Long id,
+            @RequestBody @Valid StatusRequestDTO dto) {
+        try {
+            return ResponseEntity.ok().body(service.status(id, dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

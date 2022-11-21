@@ -1,5 +1,6 @@
 package com.vagas.cadastro.service;
 
+import com.vagas.cadastro.dto.request.StatusRequestDTO;
 import com.vagas.cadastro.dto.request.VagaRequestDTO;
 import com.vagas.cadastro.model.Vaga;
 import org.springframework.data.domain.Page;
@@ -19,4 +20,5 @@ public interface VagaService {
 
     Vaga editar(Long id, VagaRequestDTO dto, Long idUser);
 
+    Vaga status(Long id, StatusRequestDTO dto);
 }
