@@ -3,6 +3,9 @@ jQuery(function () {
     $('#modalCadastroVaga').modal({ backdrop: 'static', keyboard: false });
 
     $("#btnSalvar").on('click', function () {
+
+        console.log('Valor do btn SALVAR OU EDIT', $("#btnSalvar").val());
+
         if ($("#btnSalvar").val() == "Cadastrar") {
             cadastrarVaga();
         }
@@ -11,6 +14,10 @@ jQuery(function () {
             atualizarVaga();
         }
     });
+
+    /*  $("#area_atuacao").on('click', function () {
+         $("#area_atuacao").chosen("destroy");
+     }); */
 
     $(".novaVaga").on('click', function () {
         $("#btnSalvar").html("Cadastrar");
@@ -32,8 +39,10 @@ jQuery(function () {
     });
 });
 
-function carregarTags() {
+function carregarTags(tags = null) {
     let token = localStorage.getItem('token');
+
+    console.log('Valor do tags', tags);
 
     $.ajax({
         type: "GET",
@@ -46,8 +55,21 @@ function carregarTags() {
         },
         success: function (data) {
             $.map(data.content, function (tag) {
-                $('#area_atuacao').append(`<option value="${tag.id}">${tag.nome}</option>`);
+                $('#area_atuacao').append($('<option>', {
+                    value: tag.id,
+                    text: tag.nome
+                }));
             });
+
+            // VErificar pq não tá setando as opções	
+            if (tags != null && tags.length > 0) {
+                $.map(tags, function (tag) {
+                    $("#area_atuacao")
+                        .find(tag.id)
+                        .prop("selected", true);
+                });
+            }
+
             $("#area_atuacao").trigger("chosen:updated");
         },
         error: function (data) {
@@ -270,19 +292,9 @@ function carregarDadosModal(data) {
         $(".salario").hide();
     }
 
-
-    carregarTags();
-
-    for (const element of data.tags) {
-        $("#area_atuacao").val(element.id);
-        $("#area_atuacao").trigger("chosen:updated");
-    }
+    carregarTags(data.tags);
 
     $('#modalCadastroVaga').modal('show');
-
-    $("#btnSalvar").on('click', function () {
-        atualizarVaga();
-    });
 }
 
 
@@ -290,23 +302,25 @@ function carregarDadosModal(data) {
 function atualizarVaga(data) {
     let token = localStorage.getItem('token');
 
-    $.ajax({
-        type: "GET",
-        url: `${url}/vaga/editar/${id}`,
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        success: function (data) {
-            appUtil.toastr("success", "Registro atualizado com sucesso!", "Sucesso");
-            listar();
-        },
-        error: function (data) {
-            console.log(data);
-            appUtil.toastr("error", data.responseJSON.erro, "Erro");
-        }
-    });
+    console.log('chegou', data);
+
+    // $.ajax({
+    //     type: "GET",
+    //     url: `${url}/vaga/editar/${id}`,
+    //     headers: {
+    //         'Accept': 'application/json, text/plain, */*',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + token
+    //     },
+    //     success: function (data) {
+    //         appUtil.toastr("success", "Registro atualizado com sucesso!", "Sucesso");
+    //         listar();
+    //     },
+    //     error: function (data) {
+    //         console.log(data);
+    //         appUtil.toastr("error", data.responseJSON.erro, "Erro");
+    //     }
+    // });
 }
 
 function limparCampos() {
