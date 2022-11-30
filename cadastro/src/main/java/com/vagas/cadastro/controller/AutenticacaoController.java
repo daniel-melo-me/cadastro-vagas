@@ -2,7 +2,7 @@ package com.vagas.cadastro.controller;
 
 import com.vagas.cadastro.dto.LoginDTO;
 import com.vagas.cadastro.dto.TokenDTO;
-import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioRequestDTO;
 import com.vagas.cadastro.service.TokenService;
 import com.vagas.cadastro.service.UsuarioService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.vagas.cadastro.service;
 
-import com.vagas.cadastro.dto.request.UsuarioEditRequestDTO;
-import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioEditRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioRequestDTO;
 import com.vagas.cadastro.model.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

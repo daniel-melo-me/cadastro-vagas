@@ -1,6 +1,6 @@
 package com.vagas.cadastro.repository;
 
-import com.vagas.cadastro.dto.request.CurriculoRequestDTO;
+import com.vagas.cadastro.config.request.CurriculoRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
 import com.vagas.cadastro.model.Curriculo;
 import com.vagas.cadastro.model.Perfil;

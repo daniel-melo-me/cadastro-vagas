@@ -1,6 +1,6 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.CandidaturasRequestDTO;
+import com.vagas.cadastro.config.request.CandidaturasRequestDTO;
 import com.vagas.cadastro.service.CandidaturasService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

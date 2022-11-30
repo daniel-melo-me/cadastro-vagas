@@ -1,7 +1,7 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.UsuarioEditRequestDTO;
-import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioEditRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioRequestDTO;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.UsuarioRepository;
@@ -92,6 +92,16 @@ public class UsuarioController {
     public ResponseEntity<?> listar(Pageable pageable) {
         try {
             return ResponseEntity.ok().body(service.listar(pageable));
+        } catch (Exception e) {
+            return retornoErro(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getUsuario")
+    @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
+    public ResponseEntity<?> getIdUsuario() {
+        try {
+            return ResponseEntity.ok().body(service.pesquisar(tokenService.returnId()));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

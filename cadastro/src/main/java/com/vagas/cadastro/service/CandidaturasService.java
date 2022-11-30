@@ -1,6 +1,6 @@
 package com.vagas.cadastro.service;
 
-import com.vagas.cadastro.dto.request.CandidaturasRequestDTO;
+import com.vagas.cadastro.config.request.CandidaturasRequestDTO;
 import com.vagas.cadastro.model.Candidaturas;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
