@@ -1,6 +1,6 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.TagsRequestDTO;
+import com.vagas.cadastro.config.request.TagsRequestDTO;
 import com.vagas.cadastro.service.TagsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -3,14 +3,12 @@ jQuery(function () {
     $('#modalCadastroVaga').modal({ backdrop: 'static', keyboard: false });
 
     $("#btnSalvar").on('click', function () {
-        if ($("#formCadastrarVaga").valid()) {
-            if ($("#btnSalvar").val() == "Cadastrar") {
-                cadastrarVaga();
-            }
+        if ($("#btnSalvar").val() == "Cadastrar") {
+            cadastrarVaga();
+        }
 
-            if ($("#btnSalvar").val() == "Editar") {
-                atualizarVaga();
-            }
+        if ($("#btnSalvar").val() == "Editar") {
+            atualizarVaga();
         }
     });
 

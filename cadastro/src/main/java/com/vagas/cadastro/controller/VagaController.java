@@ -1,7 +1,7 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.StatusRequestDTO;
-import com.vagas.cadastro.dto.request.VagaRequestDTO;
+import com.vagas.cadastro.config.request.StatusRequestDTO;
+import com.vagas.cadastro.config.request.VagaRequestDTO;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.Vaga;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;

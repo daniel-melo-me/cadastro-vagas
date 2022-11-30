@@ -1,6 +1,6 @@
 package com.vagas.cadastro.controller;
 
-import com.vagas.cadastro.dto.request.EmailRequestDTO;
+import com.vagas.cadastro.config.request.EmailRequestDTO;
 import com.vagas.cadastro.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

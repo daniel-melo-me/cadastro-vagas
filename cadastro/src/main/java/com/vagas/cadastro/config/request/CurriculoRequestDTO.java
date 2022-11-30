@@ -1,4 +1,4 @@
-package com.vagas.cadastro.dto.request;
+package com.vagas.cadastro.config.request;
 
 import com.sun.istack.NotNull;
 import com.vagas.cadastro.model.Arquivo;

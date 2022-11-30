@@ -1,6 +1,6 @@
 package com.vagas.cadastro.service.impl;
 
-import com.vagas.cadastro.dto.request.TagsRequestDTO;
+import com.vagas.cadastro.config.request.TagsRequestDTO;
 import com.vagas.cadastro.model.Tags;
 import com.vagas.cadastro.repository.TagsRepository;
 import com.vagas.cadastro.service.TagsService;

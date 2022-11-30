@@ -79,7 +79,7 @@
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
     
-    <div class="container emp-profile">
+    <div class="container emp-profile" id="data_table_perfil">
         <form method="post">
             <div class="row">
                 <div class="col-md-4">
@@ -97,10 +97,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
-                                <h5>
-                                    Kshiti Ghelani
-                                </h5>
-                                <p class="proile-rating">Criação: <span>25/04/2022</span></p>
+                                <h5 id="nomePerfil"></h5>
+                                <p class="proile-rating">Criação: <span id="dataCriacao"></span></p>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
@@ -133,16 +131,8 @@
                                 <div class="col-md-6">
                                     <label>Matrícula</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <p>30023417833</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Nome</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Kshiti Ghelani</p>
+                                <div class="col-md-6" >
+                                    <p id="matricula"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -150,7 +140,7 @@
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>kshitighelani@gmail.com</p>
+                                    <p id="emailPerfil"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -158,7 +148,7 @@
                                     <label>Perfil</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Aluno</p>
+                                    <p id="perfil"></p>
                                 </div>
                             </div>
                         </div>
@@ -234,12 +224,12 @@
 
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="titulo" required>
-                            <label class="label-control" for="titulo">Titulo</label>
+                            <label class="label-control" id="titulo" for="titulo">Titulo</label>
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
                             <textarea class="form-control-input" id="descricao" required ></textarea>
-                            <label class="label-control" for="descricao">Descrição</label>
+                            <label class="label-control" id="descricao" for="descricao">Descrição</label>
                             <div class="help-block with-errors"></div>
                         </div>
                         <div  class="form-group">
@@ -255,7 +245,7 @@
                             <input class="form-control" type="file" id="formFile">
                         </div>  
                         <div class="form-group">
-                            <button type="submit" class="form-control-submit-button">Cadastrar</button>
+                            <button type="button" id="curriculo" class="form-control-submit-button">Cadastrar</button>
                         </div>
                         <div class="form-message">
                             <div id="smsgSubmit" class="h3 text-center hidden"></div>
@@ -368,7 +358,11 @@
     <script src="../../js/plugins/jquery/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
     <script src="../../js/plugins/validator/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="../../js/scripts.js"></script> <!-- Custom scripts -->
-    <script src="../../js/vagas/index.js"></script> <!-- Custom scripts -->
     <script src="../../js/perfil/index.js"></script> <!-- Custom scripts -->
+    <script src="../../js/plugins/jquery_cookie_master/src/jquery.cookie.js"></script>
+    <script src="../../js/utils/helpers.js"></script>
+    <script src="../../js/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="../../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../../js/plugins/bootbox/bootbox.min.js"></script>
 </body>
 </html>

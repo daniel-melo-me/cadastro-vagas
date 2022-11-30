@@ -1,4 +1,4 @@
-package com.vagas.cadastro.dto.request;
+package com.vagas.cadastro.config.request;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

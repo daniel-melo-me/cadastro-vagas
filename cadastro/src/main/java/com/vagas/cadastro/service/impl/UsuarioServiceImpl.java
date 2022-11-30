@@ -1,7 +1,7 @@
 package com.vagas.cadastro.service.impl;
 
-import com.vagas.cadastro.dto.request.UsuarioEditRequestDTO;
-import com.vagas.cadastro.dto.request.UsuarioRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioEditRequestDTO;
+import com.vagas.cadastro.config.request.UsuarioRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
 import com.vagas.cadastro.model.Perfil;
 import com.vagas.cadastro.model.Usuario;

@@ -1,6 +1,6 @@
 package com.vagas.cadastro.service.impl;
 
-import com.vagas.cadastro.dto.request.EmailRequestDTO;
+import com.vagas.cadastro.config.request.EmailRequestDTO;
 import com.vagas.cadastro.model.Email;
 import com.vagas.cadastro.repository.EmailRepository;
 import com.vagas.cadastro.service.EmailService;
