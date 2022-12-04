@@ -6,47 +6,47 @@
 const url = "http://localhost:8080";
 const token = localStorage.getItem('token');
 
-(function($) {
-    "use strict"; 
-	
-	/* Preloader */
-	$(window).on('load', function() {
-		let preloaderFadeOutTime = 500;
-		function hidePreloader() {
-			let preloader = $('.spinner-wrapper');
-			setTimeout(function() {
-				preloader.fadeOut(preloaderFadeOutTime);
-			}, 500);
-		}
-		hidePreloader();
-	});
+(function ($) {
+    "use strict";
 
-	
-	/* Navbar Scripts */
-	// jQuery to collapse the navbar on scroll
+    /* Preloader */
+    $(window).on('load', function () {
+        let preloaderFadeOutTime = 500;
+        function hidePreloader() {
+            let preloader = $('.spinner-wrapper');
+            setTimeout(function () {
+                preloader.fadeOut(preloaderFadeOutTime);
+            }, 500);
+        }
+        hidePreloader();
+    });
+
+
+    /* Navbar Scripts */
+    // jQuery to collapse the navbar on scroll
     // $(window).on('scroll load', function() {
-	// 	if ($(".navbar").offset().top > 60) {
-	// 		$(".fixed-top").addClass("top-nav-collapse");
-	// 	} else {
-	// 		$(".fixed-top").removeClass("top-nav-collapse");
-	// 	}
+    // 	if ($(".navbar").offset().top > 60) {
+    // 		$(".fixed-top").addClass("top-nav-collapse");
+    // 	} else {
+    // 		$(".fixed-top").removeClass("top-nav-collapse");
+    // 	}
     // });
 
-	// jQuery for page scrolling feature - requires jQuery Easing plugin
-	$(function() {
-		$(document).on('click', 'a.page-scroll', function(event) {
-			var $anchor = $(this);
-			$('html, body').stop().animate({
-				scrollTop: $($anchor.attr('href')).offset().top
-			}, 600, 'easeInOutExpo');
-			event.preventDefault();
-		});
-	});
+    // jQuery for page scrolling feature - requires jQuery Easing plugin
+    $(function () {
+        $(document).on('click', 'a.page-scroll', function (event) {
+            var $anchor = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $($anchor.attr('href')).offset().top
+            }, 600, 'easeInOutExpo');
+            event.preventDefault();
+        });
+    });
 
     // closes the responsive menu on menu item click
-    $(".navbar-nav li a").on("click", function(event) {
-    if (!$(this).parent().hasClass('dropdown'))
-        $(".navbar-collapse").collapse('hide');
+    $(".navbar-nav li a").on("click", function (event) {
+        if (!$(this).parent().hasClass('dropdown'))
+            $(".navbar-collapse").collapse('hide');
     });
 
 
@@ -55,11 +55,11 @@ const token = localStorage.getItem('token');
         autoplay: {
             delay: 2000,
             disableOnInteraction: false
-		},
+        },
         loop: true,
         spaceBetween: 30,
         slidesPerView: 5,
-		breakpoints: {
+        breakpoints: {
             // when window is <= 580px
             580: {
                 slidesPerView: 1,
@@ -86,16 +86,16 @@ const token = localStorage.getItem('token');
 
 
     /* Text Slider - Swiper */
-	var textSlider = new Swiper('.text-slider', {
+    var textSlider = new Swiper('.text-slider', {
         autoplay: {
             delay: 10000,
             disableOnInteraction: false
-		},
+        },
         loop: true,
         navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev'
-		}
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
     });
 
 
@@ -133,27 +133,27 @@ const token = localStorage.getItem('token');
 
 
     /* Details Lightbox - Magnific Popup */
-	// $('.popup-with-move-anim').magnificPopup({
-	// 	type: 'inline',
-	// 	fixedContentPos: false, /* keep it false to avoid html tag shift with margin-right: 17px */
-	// 	fixedBgPos: true,
-	// 	overflowY: 'auto',
-	// 	closeBtnInside: true,
-	// 	preloader: false,
-	// 	midClick: true,
-	// 	removalDelay: 300,
-	// 	mainClass: 'my-mfp-slide-bottom'
-	// });
-    
-    
+    // $('.popup-with-move-anim').magnificPopup({
+    // 	type: 'inline',
+    // 	fixedContentPos: false, /* keep it false to avoid html tag shift with margin-right: 17px */
+    // 	fixedBgPos: true,
+    // 	overflowY: 'auto',
+    // 	closeBtnInside: true,
+    // 	preloader: false,
+    // 	midClick: true,
+    // 	removalDelay: 300,
+    // 	mainClass: 'my-mfp-slide-bottom'
+    // });
+
+
     /* Move Form Fields Label When User Types */
     // for input and textarea fields
-    $("input, textarea").keyup(function(){
-		if ($(this).val() != '') {
-			$(this).addClass('notEmpty');
-		} else {
-			$(this).removeClass('notEmpty');
-		}
+    $("input, textarea").keyup(function () {
+        if ($(this).val() != '') {
+            $(this).addClass('notEmpty');
+        } else {
+            $(this).removeClass('notEmpty');
+        }
     });
 
 
@@ -172,13 +172,13 @@ const token = localStorage.getItem('token');
 
     function ssubmitForm() {
         // initiate variables with form content
-		var email = $("#semail").val();
-		var name = $("#sname").val();
-		var password = $("#spassword").val();
+        var email = $("#semail").val();
+        var name = $("#sname").val();
+        var password = $("#spassword").val();
         var terms = $("#sterms").val();
         var matricula = $("#smatricula").val();
         var imagem = $("#formFile").val();
-        
+
         $.ajax({
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -189,12 +189,12 @@ const token = localStorage.getItem('token');
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify({
-                    nome: name, 
-                    email: email,
-                    senha: password,
-                    matricula: matricula
-                }), 
-            success: function(text) {
+                nome: name,
+                email: email,
+                senha: password,
+                matricula: matricula
+            }),
+            success: function (text) {
                 if (text == "success") {
                     sformSuccess();
                 } else {
@@ -203,7 +203,7 @@ const token = localStorage.getItem('token');
                 }
             }
         });
-	}
+    }
 
     function sformSuccess() {
         $("#signUpForm")[0].reset();
@@ -212,10 +212,10 @@ const token = localStorage.getItem('token');
     }
 
     function sformError() {
-        $("#signUpForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $("#signUpForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
-	}
+    }
 
     function ssubmitMSG(valid, msg) {
         if (valid) {
@@ -242,14 +242,14 @@ const token = localStorage.getItem('token');
 
     function lsubmitForm() {
         // initiate variables with form content
-		var email = $("#lemail").val();
-		var password = $("#lpassword").val();
-        
+        var email = $("#lemail").val();
+        var password = $("#lpassword").val();
+
         $.ajax({
             type: "POST",
             url: "php/loginform-process.php",
-            data: "email=" + email + "&password=" + password, 
-            success: function(text) {
+            data: "email=" + email + "&password=" + password,
+            success: function (text) {
                 if (text == "success") {
                     lformSuccess();
                 } else {
@@ -258,7 +258,7 @@ const token = localStorage.getItem('token');
                 }
             }
         });
-	}
+    }
 
     function lformSuccess() {
         $("#logInForm")[0].reset();
@@ -267,10 +267,10 @@ const token = localStorage.getItem('token');
     }
 
     function lformError() {
-        $("#logInForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $("#logInForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
-	}
+    }
 
     function lsubmitMSG(valid, msg) {
         if (valid) {
@@ -283,50 +283,51 @@ const token = localStorage.getItem('token');
 
 
     /* Newsletter Form */
-    // $("#newsletterForm").validator().on("submit", function(event) {
-    // 	if (event.isDefaultPrevented()) {
-    //         // handle the invalid form...
-    //         nformError();
-    //         nsubmitMSG(false, "Please fill all fields!");
-    //     } else {
-    //         // everything looks good!
-    //         event.preventDefault();
-    //         nsubmitForm();
-    //     }
-    // });
+    $("#newsletterForm").validator().on("submit", function (event) {
+        if (event.isDefaultPrevented()) {
+            // handle the invalid form...
+            nformError();
+            nsubmitMSG(false, "Please fill all fields!");
+        } else {
+            // everything looks good!
+            event.preventDefault();
+            nsubmitForm();
+        }
+    });
 
     function nsubmitForm() {
         // initiate variables with form content
         var email = $("#nemail").val();
         var subject = "Fique por dentro de todas as nossas novidades!";
         var text = "Agora você poderá acompanhar todas as nossas vagas pelo seu e-mail. Fique por dentro de tudo!!";
-		var email = $("#nemail").val();
+        var email = $("#nemail").val();
         var terms = $("#nterms").val();
-            $.ajax({
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                url: `${url}/email/enviar`,
-                contentType: "application/json;charset=UTF-8",
-                data: JSON.stringify({
-                    emailTo: email,
-                    subject: subject,
-                    text: text
-            }),
-            beforeSend: function() {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            url: `${url}/email/enviar`,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({
+                emailTo: email,
+                subject: subject,
+                text: text
+            })/* ,
+            beforeSend: function () {
                 $(".spinner-wrapper").show();
             },
-            complete: function() {
+            complete: function () {
                 $(".spinner-wrapper").hide();
-            }
-        }).done(function(){
-            alert("email enviado com sucesso")
+            } */
+        }).done(function () {
+            appUtil.toastr("success", "Email enviado com sucesso!", "Sucesso");
         }).fail(function (errorThrown) {
-            alert('Falhou' + errorThrown);  
+            console.log(errorThrown);
+            appUtil.toastr("error", errorThrown.responseJSON.erro, "Erro");
         });
-	}
+    }
 
     function nformSuccess() {
         $("#newsletterForm")[0].reset();
@@ -335,10 +336,10 @@ const token = localStorage.getItem('token');
     }
 
     function nformError() {
-        $("#newsletterForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $("#newsletterForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
-	}
+    }
 
     function nsubmitMSG(valid, msg) {
         if (valid) {
@@ -348,33 +349,33 @@ const token = localStorage.getItem('token');
         }
         $("#nmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
-    
+
 
     /* Privacy Form */
-    // $("#privacyForm").validator().on("submit", function(event) {
-    // 	if (event.isDefaultPrevented()) {
-    //         // handle the invalid form...
-    //         pformError();
-    //         psubmitMSG(false, "Please fill all fields!");
-    //     } else {
-    //         // everything looks good!
-    //         event.preventDefault();
-    //         psubmitForm();
-    //     }
-    // });
-// 
+    $("#privacyForm").validator().on("submit", function (event) {
+        if (event.isDefaultPrevented()) {
+            // handle the invalid form...
+            pformError();
+            psubmitMSG(false, "Please fill all fields!");
+        } else {
+            // everything looks good!
+            event.preventDefault();
+            psubmitForm();
+        }
+    });
+
     function psubmitForm() {
         // initiate variables with form content
-		var name = $("#pname").val();
-		var email = $("#pemail").val();
+        var name = $("#pname").val();
+        var email = $("#pemail").val();
         var select = $("#pselect").val();
         var terms = $("#pterms").val();
-        
+
         $.ajax({
             type: "POST",
             url: "php/privacyform-process.php",
-            data: "name=" + name + "&email=" + email + "&select=" + select + "&terms=" + terms, 
-            success: function(text) {
+            data: "name=" + name + "&email=" + email + "&select=" + select + "&terms=" + terms,
+            success: function (text) {
                 if (text == "success") {
                     pformSuccess();
                 } else {
@@ -383,7 +384,7 @@ const token = localStorage.getItem('token');
                 }
             }
         });
-	}
+    }
 
     function pformSuccess() {
         $("#privacyForm")[0].reset();
@@ -392,10 +393,10 @@ const token = localStorage.getItem('token');
     }
 
     function pformError() {
-        $("#privacyForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+        $("#privacyForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
-	}
+    }
 
     function psubmitMSG(valid, msg) {
         if (valid) {
@@ -405,13 +406,13 @@ const token = localStorage.getItem('token');
         }
         $("#pmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
-    
+
 
     /* Back To Top Button */
     // create the back to top button
     $('body').prepend('<a href="body" class="back-to-top page-scroll">Back to Top</a>');
     var amountScrolled = 700;
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(window).scrollTop() > amountScrolled) {
             $('a.back-to-top').fadeIn('500');
         } else {
@@ -420,18 +421,18 @@ const token = localStorage.getItem('token');
     });
 
 
-	/* Removes Long Focus On Buttons */
-	$(".button, a, button").mouseup(function() {
-		$(this).blur();
-	});
+    /* Removes Long Focus On Buttons */
+    $(".button, a, button").mouseup(function () {
+        $(this).blur();
+    });
 
-    $('.navbar-toggler').on('click', function() {
+    $('.navbar-toggler').on('click', function () {
         var collapse = $('.navbar-collapse');
 
-        if ( collapse.hasClass('collapse')) {
+        if (collapse.hasClass('collapse')) {
             collapse.addClass('show').removeClass('collapse');
         }
-        else  {
+        else {
             collapse.removeClass('show').addClass('collapse');
         }
     });
