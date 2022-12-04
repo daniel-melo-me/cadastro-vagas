@@ -33,17 +33,13 @@ public class UsuarioController {
     private final Map<String, String> retorno = new HashMap<>();
     private final UsuarioRepository repository;
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/editar")
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN') or hasRole('ALUNO')")
     @Transactional
     public ResponseEntity<?> editar(
-            @PathVariable(value = "id") Long id,
             @RequestBody @Valid UsuarioEditRequestDTO dto) {
         try {
-            if (verificacaoDePermissaoPeloId(id)) {
-                return ResponseEntity.status(401).build();
-            }
-            return ResponseEntity.ok(service.editar(id, dto));
+            return ResponseEntity.ok(service.editar(tokenService.returnId(), dto));
         } catch (Exception e) {
             return retornoErro(e.getMessage());
         }

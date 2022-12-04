@@ -18,6 +18,9 @@
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/perfil/index.css" rel="stylesheet">
     <link href="../../css/cadastro/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/plugins/datatable/datatables.min.css">
+    <link rel="stylesheet" href="../../css/vagas/form.css">
+    <link rel="stylesheet" href="../../css/vagas/index.css">
 	
 	<!-- Favicon  -->
     <link rel="icon" href="../../images/favicon.png">
@@ -66,8 +69,6 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#video"><span class="item-text">MEUS DADOS</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="../../views/curriculo/form.html"><span class="item-text">CURRÍCULO</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" target="_blank" href="https://ifrs.edu.br/lgpd/"><span class="item-text">PRIVACY POLICY</span></a>
                         </div>
                     </li>
@@ -103,8 +104,8 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Vagas Relacionadas</a>
+                            <li class="nav-item" id="vagasRelacionadas">
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" >Vagas Relacionadas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#curriculo" role="tab" aria-controls="curriculo" aria-selected="false">Currículos</a>
@@ -152,60 +153,40 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Experiência</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Sênior</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Valor hora</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>10$/hr</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Nº de projetos</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>230</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Nível de inglês</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Avançado</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Disponibilidade</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Integral</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>Sobre</label><br/>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        In pulvinar massa eu ex tincidunt pellentesque. Nullam 
-                                        sit amet imperdiet orci. Praesent ullamcorper imperdiet 
-                                        dolor, vitae pretium dui gravida eu.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
+                    
+
+
+                </div>
+                <div class="tab-pane fade col-md-12 offset-md-12" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="col-lg-12  table-responsive">
+                        <table id="data_table_vagas" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Institucional</th>
+                                    <th scope="col">Publicada</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Salário</th>
+                                </tr>
+                            </thead>
+    
+                            <tbody></tbody>
+    
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Institucional</th>
+                                    <th scope="col">Publicada</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Salário</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div> <!-- end of col-->
                 </div>
             </div>
         </form>           
@@ -267,27 +248,19 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                          <label for="formGroupExampleInput">Nome</label>
-                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Informe seu novo nome">
+                          <input type="text" class="form-control" id="nomePerfilAtualizar" placeholder="Nome">
                         </div>
                         <div class="form-group">
-                          <label for="formGroupExampleInput2">Email</label>
-                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Informe seu novo email ">
+                          <input type="email" class="form-control" id="emailPerfilAtualizar" placeholder="Email ">
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput2">Senha</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="senha">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Confirmar Senha</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="confirme sua senha">
+                           
+                            <button type="button" id="btnAtualizar"
+                                            class="form-control-submit-button">Atualizar</button>
                         </div>
                       </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -357,12 +330,13 @@
     <script src="../../js/plugins/swiper/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
     <script src="../../js/plugins/jquery/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
     <script src="../../js/plugins/validator/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="../../js/plugins/datatable/datatables.min.js"></script> <!-- Datatables.js - Datatables -->
     <script src="../../js/scripts.js"></script> <!-- Custom scripts -->
     <script src="../../js/perfil/index.js"></script> <!-- Custom scripts -->
     <script src="../../js/plugins/jquery_cookie_master/src/jquery.cookie.js"></script>
-    <script src="../../js/utils/helpers.js"></script>
     <script src="../../js/plugins/chosen/chosen.jquery.min.js"></script>
     <script src="../../js/plugins/toastr/toastr.min.js"></script>
     <script src="../../js/plugins/bootbox/bootbox.min.js"></script>
+    <script src="../../js/utils/helpers.js"></script>
 </body>
 </html>
