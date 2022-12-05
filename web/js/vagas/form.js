@@ -271,6 +271,8 @@ function editar(id) {
 }
 
 function carregarDadosModal(data) {
+    appUtil.toastr("warning", "Em desenvolvimento!", "Atenção");
+
     limparCampos();
 
     $("#btnSalvar").html("Editar");
@@ -302,6 +304,10 @@ function carregarDadosModal(data) {
 function atualizarVaga(data) {
     let token = localStorage.getItem('token');
 
+    appUtil.toastr("error", "Em desenvolvimento!", "Erro");
+
+    return;
+
     console.log('chegou', data);
 
     // $.ajax({
@@ -328,3 +334,4 @@ function limparCampos() {
         this.reset();
     });
 }
+
