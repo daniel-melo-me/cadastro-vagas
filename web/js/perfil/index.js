@@ -10,6 +10,17 @@ jQuery(function () {
   $("#curriculo").on('click', function () {
     cadastrarCurriculo();
   });
+  $('#btn-curriculo').on('click', function() {
+    
+    appUtil.toastr("warning", "Em desenvolvimento!", "Atenção");
+
+    return;
+  });
+  $('#curriculo').on('click', function() {
+    appUtil.toastr("error", "Em desenvolvimento!", "Erro");
+
+    return;
+  });
 });
 
 getUsuario = () => {
@@ -198,4 +209,10 @@ function cadastrarCurriculo() {
           appUtil.hideLoader();
       }
   });
+}
+
+function abrirModalCurriculo() {
+  appUtil.toastr("warning", "Em desenvolvimento!", "Atenção");
+
+  return;
 }
