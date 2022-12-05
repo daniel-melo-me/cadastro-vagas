@@ -314,13 +314,13 @@ const token = localStorage.getItem('token');
                 emailTo: email,
                 subject: subject,
                 text: text
-            })/* ,
+            }),
             beforeSend: function () {
                 $(".spinner-wrapper").show();
             },
             complete: function () {
                 $(".spinner-wrapper").hide();
-            } */
+            }
         }).done(function () {
             appUtil.toastr("success", "Email enviado com sucesso!", "Sucesso");
         }).fail(function (errorThrown) {
