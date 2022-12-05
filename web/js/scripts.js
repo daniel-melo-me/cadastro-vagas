@@ -1,3 +1,11 @@
+
+jQuery(function () {
+    $('.logout').on('click', function () {
+        localStorage.clear();
+        // window.location.href = 'login.html';
+    });
+});
+
 /* Template: Cadastro de Vagas
    Author: Gilberto
    Created: Sep 2019

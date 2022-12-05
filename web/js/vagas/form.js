@@ -174,6 +174,7 @@ function excluir(id) {
     });
 }
 
+
 function suspender(id) {
     let token = localStorage.getItem('token');
 
@@ -208,7 +209,41 @@ function suspender(id) {
         }
     });
 }
+function candidatar(id) {
+    let token = localStorage.getItem('token');
 
+    appUtil.confirmBox('<h4 class="confirmModalCss">Deseja se candidatar para esta vaga?</h4>', function (retorno) {
+        if (retorno) {
+            appUtil.showLoader('Candidatando-se...');
+            appUtil.toastr("warning", "Canditaturas em impementação!", "Atenção");
+            // $.ajax({
+            //     type: "PUT",
+            //     url: `${url}/vaga/status/${id}`,
+            //     contentType: "application/json;charset=UTF-8",
+            //     data: JSON.stringify({
+            //         "status": "SUSPENSA",
+            //     }),
+            //     headers: {
+            //         'Accept': 'application/json, text/plain, */*',
+            //         'Content-Type': 'application/json',
+            //         'Authorization': 'Bearer ' + token
+            //     },
+            //     success: function (data) {
+            //         appUtil.toastr("success", "Registro suspenso com sucesso!", "Sucesso");
+            //         listar();
+            //     },
+            //     error: function (data) {
+            //         console.log(data);
+            //         appUtil.toastr("error", "Erro ao tentar inativar o registro.", "Erro");
+            //     },
+            //     always: function () {
+            //         appUtil.hideLoader();
+            //     }
+            // });
+
+        }
+    });
+}
 function ativar(id) {
     let token = localStorage.getItem('token');
 
