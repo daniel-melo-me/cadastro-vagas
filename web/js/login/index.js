@@ -3,10 +3,10 @@ jQuery(function () {
         login();
     });
 
-    $(".form-control-input").on('keyup', function(e) {
+    $(".form-control-input").on('keyup', function (e) {
         if (e.keyCode === 13) {
             login();
-        } 
+        }
     });
 });
 
@@ -18,16 +18,15 @@ function login() {
         type: "POST",
         url: `${url}/auth/login`,
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({matricula: matricula, senha: senha}),
+        data: JSON.stringify({ matricula: matricula, senha: senha }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
         success: function (data) {
-            localStorage.setItem('token', data.token);
 
             if (data.token) {
-                window.location.href = "../vagas/index.html";
+                setarValores(data.token);
             }
 
             $("#lemail").val('');
@@ -39,4 +38,30 @@ function login() {
             $("#lpassword").val('');
         }
     });
+}
+
+function setarValores(token) {
+    $.ajax({
+        type: "GET",
+        url: `${url}/usuario/getUsuario`,
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (data) {
+            localStorage.setItem('perfilUsuario', data.perfis.nome);
+            localStorage.setItem('usuarioId', data.id);
+            localStorage.setItem('token', token);
+            window.location.href = "../vagas/index.html";
+            appUtil.toastr("success", "Logado com sucesso!", "Sucesso");
+        },
+        error: function (data) {
+            alert('Erro: ' + data.responseJSON.erro);
+        },
+        always: function () {
+            appUtil.hideLoader();
+        }
+
+    })
 }

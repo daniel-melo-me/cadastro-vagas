@@ -63,7 +63,6 @@ function atualizarPerfil() {
       'Authorization': 'Bearer ' + token
     },
     success: function (data) {
-      console.log(data);
       appUtil.toastr("success", "Registro atualizado com sucesso!", "Sucesso");
       carregarDados();
       location.reload();

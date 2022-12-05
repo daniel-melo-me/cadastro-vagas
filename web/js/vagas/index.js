@@ -1,4 +1,11 @@
+const perfil = localStorage.getItem('perfilUsuario');
+
 jQuery(function () {
+
+    if (perfil != 'ROLE_ADMIN' && perfil != 'ROLE_PROFESSOR') {
+        $(".novaVaga").hide();
+    }
+
     $('#data_table_vagas').DataTable();
     listar();
 });
@@ -18,12 +25,11 @@ function listar() {
         success: function (data) {
             let html = '';
             let botoes = '';
-            let perfil = localStorage.getItem('perfil') ?? 'admin';
 
             if (data.content.length) {
                 data.content.forEach(function (item) {
 
-                    if (perfil == 'admin' || perfil == 'professor') {
+                    if (perfil == 'ROLE_ADMIN' || perfil == 'ROLE_PROFESSOR') {
 
                         botoes = `
                             <a title="Editar">
@@ -48,16 +54,16 @@ function listar() {
                                 </button>
                             </a>
                         `;
-                    } else if (perfil == 'aluno') {
+                    } else if (perfil == 'ROLE_ALUNO') {
                         botoes = `
                             <a title="Candidatar"> 
-                                <button class="btn btn-success" onclick="excluir(${item.id})">
+                                <button class="btn btn-success" onclick="candidatar(${item.id})">
                                     Candidatar-se
                                 </button>
                             </a>
                         `;
                     } else {
-                        botoes += '<a class="btn btn-danger">Você não possui permissão</a>';
+                        botoes += '<a class="btn btn-danger">Nenhuma ação</a>';
                     }
 
                     html += ` <tr class="trCss">`;
@@ -75,7 +81,6 @@ function listar() {
                 $('#data_table_vagas tbody').html(html);
                 $('#data_table_vagas').DataTable();
             }
-
         },
         error: function (data) {
             alert('Erro: ' + data.responseJSON.erro);
