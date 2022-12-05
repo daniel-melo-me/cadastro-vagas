@@ -1,15 +1,19 @@
 package com.vagas.cadastro.service.impl;
 
+import com.vagas.cadastro.config.request.EmailRequestDTO;
 import com.vagas.cadastro.config.request.UsuarioEditRequestDTO;
 import com.vagas.cadastro.config.request.UsuarioRequestDTO;
 import com.vagas.cadastro.model.Arquivo;
+import com.vagas.cadastro.model.Email;
 import com.vagas.cadastro.model.Perfil;
 import com.vagas.cadastro.model.Usuario;
 import com.vagas.cadastro.model.enumeration.PerfilEnum;
 import com.vagas.cadastro.repository.ArquivoRepository;
 import com.vagas.cadastro.repository.PerfilRepository;
 import com.vagas.cadastro.repository.UsuarioRepository;
+import com.vagas.cadastro.service.EmailService;
 import com.vagas.cadastro.service.UsuarioService;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +30,7 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService, EmailService {
 
     private final PerfilRepository perfilRepository;
     private final UsuarioRepository repository;
@@ -263,5 +267,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Id não encontrado");
         }
+    }
+
+    @Override
+    @Builder
+    public Email sendEmail(EmailRequestDTO dto) {
+        return Email.
+                builder()
+                .emailTo(dto.getEmailTo())
+                .text(dto.getText())
+                .subject(dto.getSubject())
+                .build();
     }
 }
